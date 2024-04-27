@@ -9,6 +9,7 @@
 
 
 
+
 // PROMPT 1 (Saludo + día + materias + opciones)
 
 // Uso de función con parámetro + uso de Return + más uso de array para sacar con el índice el día de la semana.
