@@ -5,8 +5,13 @@
 // Cambiar los 2 while(true) --> CHECK
 // Hacer que el simulador completo esté en loop (volver al menu inicial o salir) --> CHECK
 // Cambiar switch del día de la semana por función--> CHECK
-// Sumar otro objeto además del Date: class materias -->
+// Sumar otro objeto además del Date: class materias --> CHECK
 
+/* En la entrega 3, la idea es que la class materias(op3) no venga ya completada, 
+sino que se capturen también los datos del docente para cada objeto/alumno, 
+pero como ahora como es por prompt y no se si uno va a usar directo la opción 4, 3, 2...en qué orden, 
+de ir directo a la opción 3 de la class quedarían los espacios vacíos si nos los llenaba yo, 
+por si antes no se pasaba por el rellenado de las opciones de asistencia o calificaciones. (espero que se entienda la aclaración).*/
 
 
 // PROMPT 1 (Saludo + día + materias + opciones)
@@ -28,7 +33,6 @@ function obtenerMensaje(diaSemana) {
         5: "Último esfuerzo! \n Tienes clases de: \n -Aritmética en la Escuela Nº11 a las 10hs. \n -Geometría en la Escuela Nº30 a las 12hs.",
         6: "¡Es fin de semana! A disfrutar :)"
     };
-
     return mensajes[diaSemana];
 }
 
@@ -41,8 +45,6 @@ let mensaje = "¡Bienvenid@! Hoy es " + obtenerNombreDia(diaSemana) + ".\n" + ob
 let opcion = "";
 while( opcion !== "4") {
 opcion = prompt(mensaje + "\n\n ¿Qué deseas hacer hoy? \n Teclea: \n 1: para ver calificaciones \n 2: para ver asistencias \n 3: para ver estado completo de alumnos \n 4: para salir.");
-
-
 
 
 ////////////////////// CALIFICACIONES
@@ -146,8 +148,10 @@ else if (opcion === "2") {
 
 //////////////////////  CLASS MATERIAS, (alert simple de pedido de datos)
 
-class Materias{
-    constructor(materiaAlumno, nombreAlumno, promedioAlumno, estadoNotas, estadoAsistencias) {
+} else if ( opcion === "3"){
+
+class Materias {
+    constructor (materiaAlumno, nombreAlumno, promedioAlumno, estadoNotas, estadoAsistencias) {
         this.materiaAlumno = materiaAlumno
         this.nombreAlumno = nombreAlumno;
         this.promedioAlumno  = promedioAlumno;
@@ -155,32 +159,36 @@ class Materias{
         this.estadoAsistencias =estadoAsistencias
     }
 }
+
 const alumno1 = new Materias("Aritmética", "María Rodriguez", 10, "Aprobada", "Regularizada");
 const alumno2 = new Materias("Aritmética", "Juan Perez", 5, "Desaprobado", "Regularizada");
 const alumno3 = new Materias("Aritmética", "Pablo Lopez", 8, "Aprobado", "Ver Regularidad");
 
-} else if ( opcion === "3"){
-let alumnoClass= parseInt(prompt(`Elige un alumno: \n 1: María Rodriguez  \n 2: Juan Perez \n 3: Pablo Lopez`));
-    if (alumnoClass === 1){
-        prompt(`Estado del alumno: \n Materia: ${alumno1.materiaAlumno} \n Nombre: ${alumno1.nombreAlumno} \n Promedio: ${alumno1.promedioAlumno} \n Estado de Notas: ${alumno1.estadoNotas} \n Estado de Asistencias: ${alumno1.estadoAsistencias} \n\nTeclea enter o aceptar/ok para volver al menú principal.`)
-    } else if (alumnoClass === 2){
-        prompt(`Estado del alumno: \n Materia: ${alumno2.materiaAlumno} \n Nombre: ${alumno2.nombreAlumno} \n Promedio: ${alumno2.promedioAlumno} \n Estado de Notas: ${alumno2.estadoNotas} \n Estado de Asistencias: ${alumno2.estadoAsistencias} \n\nTeclea enter o aceptar/ok para volver al menú principal.`)
-    } else if (alumnoClass === 3){
-        prompt(`Estado del alumno: \n Materia: ${alumno3.materiaAlumno} \n Nombre: ${alumno3.nombreAlumno} \n Promedio: ${alumno3.promedioAlumno} \n Estado de Notas: ${alumno3.estadoNotas} \n Estado de Asistencias: ${alumno3.estadoAsistencias} \n\nTeclea enter o aceptar/ok para volver al menú principal.`)
-    } else {
-        alert(`El número ingresado no es válido. Por favor, ingresa un valor válido.`)
+
+let alumnoClass;
+while (alumnoClass !== 1 && alumnoClass !== 2 && alumnoClass !== 3) {
+    alumnoClass = parseInt(prompt(`Elige un alumno: \n 1: María Rodriguez  \n 2: Juan Perez \n 3: Pablo Lopez`));
+    if (alumnoClass !== 1 && alumnoClass !== 2 && alumnoClass !== 3) {
+        alert(`El número ingresado no es válido. Por favor, ingresa un valor válido.`);
     }
+}
 
-
+// Visualización del estado del alumno seleccionado
+if (alumnoClass === 1) {
+    alert(`Estado del alumno: \n Materia: ${alumno1.materiaAlumno} \n Nombre: ${alumno1.nombreAlumno} \n Promedio: ${alumno1.promedioAlumno} \n Estado de Notas: ${alumno1.estadoNotas} \n Estado de Asistencias: ${alumno1.estadoAsistencias} \n\nTeclea enter o aceptar/ok para volver al menú principal.`);
+} else if (alumnoClass === 2) {
+    alert(`Estado del alumno: \n Materia: ${alumno2.materiaAlumno} \n Nombre: ${alumno2.nombreAlumno} \n Promedio: ${alumno2.promedioAlumno} \n Estado de Notas: ${alumno2.estadoNotas} \n Estado de Asistencias: ${alumno2.estadoAsistencias} \n\nTeclea enter o aceptar/ok para volver al menú principal.`);
+} else if (alumnoClass === 3) {
+    alert(`Estado del alumno: \n Materia: ${alumno3.materiaAlumno} \n Nombre: ${alumno3.nombreAlumno} \n Promedio: ${alumno3.promedioAlumno} \n Estado de Notas: ${alumno3.estadoNotas} \n Estado de Asistencias: ${alumno3.estadoAsistencias} \n\nTeclea enter o aceptar/ok para volver al menú principal.`);
+}
+}
 
 ////////////////////// PARA SALIR DEL MENÚ
 
-} else if( opcion === "4"){
+else if( opcion === "4"){
     alert ("Gracias por utilizar nuestra web. \n\nQue tenga un buen día! =D")
 
 } else {
     alert("Opción no disponible. Por favor elige una opción válida.");
 }
 }
-
-
