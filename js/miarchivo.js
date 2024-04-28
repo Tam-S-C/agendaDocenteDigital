@@ -7,8 +7,11 @@
 // Cambiar switch del día de la semana por función--> CHECK
 // Sumar otro objeto además del Date: class materias --> CHECK
 
-// En la entrega 3, la idea es que la class materias(op3) no venga ya completada, sino que se capturen también los datos del docente para cada objeto/alumno, pero como ahora como es por prompt y no se si uno va a usar directo la opción 4, 3, 2...en qué orden, de ir directo a la opción 3 de la class quedarían los espacios vacíos si nos los llenaba yo, por si antes no se pasaba por el rellenado de las opciones de asistencia o calificaciones. (espero que se entienda la aclaración).
-
+/* En la entrega 3, la idea es que la class materias(op3) no venga ya completada, 
+sino que se capturen también los datos del docente para cada objeto/alumno, 
+pero como ahora como es por prompt y no se si uno va a usar directo la opción 4, 3, 2...en qué orden, 
+de ir directo a la opción 3 de la class quedarían los espacios vacíos si nos los llenaba yo, 
+por si antes no se pasaba por el rellenado de las opciones de asistencia o calificaciones. (espero que se entienda la aclaración).*/
 
 
 // PROMPT 1 (Saludo + día + materias + opciones)
@@ -30,7 +33,6 @@ function obtenerMensaje(diaSemana) {
         5: "Último esfuerzo! \n Tienes clases de: \n -Aritmética en la Escuela Nº11 a las 10hs. \n -Geometría en la Escuela Nº30 a las 12hs.",
         6: "¡Es fin de semana! A disfrutar :)"
     };
-
     return mensajes[diaSemana];
 }
 
@@ -43,8 +45,6 @@ let mensaje = "¡Bienvenid@! Hoy es " + obtenerNombreDia(diaSemana) + ".\n" + ob
 let opcion = "";
 while( opcion !== "4") {
 opcion = prompt(mensaje + "\n\n ¿Qué deseas hacer hoy? \n Teclea: \n 1: para ver calificaciones \n 2: para ver asistencias \n 3: para ver estado completo de alumnos \n 4: para salir.");
-
-
 
 
 ////////////////////// CALIFICACIONES
