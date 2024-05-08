@@ -20,13 +20,13 @@ function obtenerNombreDia(dia) {
 
 function obtenerMensaje(diaSemana) {
     let mensajes = {
-        0: "Hoy es día de descanso laboral :) .",
-        1: "Fuerzas tú puedes! \n\n Tienes clases de: \n\n -Aritmética en la Esc. Nº11 a las 10hs. \n -Geometría en la Esc. Nº30 a las 12hs.",
-        2: "Hoy sólo tienes clases de: \n\n -Aritmética en la Esc. Nº30 a las 10hs.",
-        3: "Vamos por la mitad de la semana! \n\n Tienes clases de: \n\n -Aritmética en la Esc. Nº11 a las 10hs. \n -Geometría en la Esc. Nº30 a las 12hs.",
-        4: "Vamos que hoy sólo tienes una clase! \n\n Tienes clases de: \n\n -Geometría en la Esc. Nº11 a las 10hs.",
-        5: "Último esfuerzo! \n\n Tienes clases de: \n\n -Aritmética en la Esc. Nº11 a las 10hs. \n\n -Geometría en la Esc. Nº30 a las 12hs.",
-        6: "¡Es fin de semana! A disfrutar :)"
+        0: "Hoy es día de descanso laboral =) .",
+        1: "Fuerzas tú puedes! \n\n Tienes clases de: \n\n > Aritmética en la Esc. Nº11 a las 10hs. \n > Geometría en la Esc. Nº30 a las 12hs.",
+        2: "Hoy sólo tienes clases de: \n\n > Aritmética en la Esc. Nº30 a las 10hs.",
+        3: "Vamos por la mitad de la semana! \n\n Tienes clases de: \n\n > Aritmética en la Esc. Nº11 a las 10hs. \n > Geometría en la Esc. Nº30 a las 12hs.",
+        4: "Vamos que hoy sólo tienes una clase! \n\n Tienes clases de: \n\n > Geometría en la Esc. Nº11 a las 10hs.",
+        5: "Último esfuerzo! \n\n Tienes clases de: \n\n > Aritmética en la Esc. Nº11 a las 10hs. \n\n > Geometría en la Esc. Nº30 a las 12hs.",
+        6: "¡Es fin de semana! \n \n  A disfrutar! =D "
     };
     return mensajes[diaSemana];
 }

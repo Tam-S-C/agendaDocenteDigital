@@ -56,6 +56,16 @@ table {
     width: 100%;
 }
 
+.tituloMes {
+    background-color: white;
+    font-size: 20px;
+}
+
+.informeMes {
+    text-align: left;
+    font-size: 14px;
+}
+
 th, td {
     border: 3px solid white;
     padding: 5px;
@@ -89,7 +99,7 @@ footer p {
     margin: 0;
 }
 
-/* RESPONSIVE */
+/* RESPONSIVE tablets*/
 
 @media (max-width: 900px) {
 
