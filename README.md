@@ -1,7 +1,8 @@
-> PRE ENTREGA 2
+> PRE-ENTREGA 3
 > JS-CoderHouse
+> Comisión 53990
 
-> Tamara Canzobre
+> Alumna: Tamara S. Canzobre
 
 > Deploy: https://tam-s-c.github.io/agendaDocenteDigital/
 

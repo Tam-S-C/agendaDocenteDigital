@@ -15,7 +15,7 @@ header {
 }
 
 #escuelaHomeImg {
-    margin-right: 15px;
+    margin-right: 20px;
 }
 
 .banner h1 {
@@ -89,9 +89,20 @@ footer p {
     margin: 0;
 }
 
+/* RESPONSIVE */
+
 @media (max-width: 900px) {
+
+    .banner h1 {
+        font-size: 20px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
     section{
-        width: 95%;
+        width: 92%;
         margin: auto;
         display: grid;
         grid-template-columns: 1fr;
@@ -99,7 +110,11 @@ footer p {
     }
 
     aside{
-        margin: 10px 0px 0px 0px;
+        margin: 15px 0px 0px 0px;
         font-size: 14px;
+    }
+
+    footer p {
+        font-size: 12px;
     }
 }

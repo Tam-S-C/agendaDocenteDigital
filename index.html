@@ -30,45 +30,85 @@
             <table>
 
                 <tr>
-                <th>ID</th>
-                <th>ALUMNOS</th>
-                <th>ASISTENCIAS</th>
-                <th>NOTAS</th>
-                <th>INFORME</th>
+                    <th>ID</th>
+                    <th>ALUMNOS</th>
+                    <th>ASISTENCIAS</th>
+                    <th>NOTAS</th>
+                    <th>INFORME</th>
                 </tr>
 
                 <tr>
-                <td>#1</td>
-                <td>María Gómez</td>
-                <td>
-                    <input type="checkbox" name="asistenciaMes1[]" value="1">
-                    <input type="checkbox" name="asistenciaMes1[]" value="2">
-                    <input type="checkbox" name="asistenciaMes1[]" value="3">
-                    <input type="checkbox" name="asistenciaMes1[]" value="4">
-                    <input type="checkbox" name="asistenciaMes1[]" value="5"><br>
-                </td>
-                <td>
-                    <input type="number" name="nota1[]" min="0" max="10" class="notas">
-                    <input type="number" name="nota1[]" min="0" max="10" class="notas">
-                    <input type="number" name="nota1[]" min="0" max="10" class="notas">
-                </td>
-                <td>
-                    <textarea name="informe" rows="1" cols="20"></textarea>
-                </td>
+                    <td>#1</td>
+                    <td>María Gómez</td>
+                    <td>
+                        <input type="checkbox" name="asistenciaMes1_Al1[]" value="1">
+                        <input type="checkbox" name="asistenciaMes1_Al1[]" value="2">
+                        <input type="checkbox" name="asistenciaMes1_Al1[]" value="3">
+                        <input type="checkbox" name="asistenciaMes1_Al1[]" value="4">
+                        <input type="checkbox" name="asistenciaMes1_Al1[]" value="5"><br>
+                    </td>
+                    <td>
+                        <input type="number" name="nota1[]" min="0" max="10" class="notas">
+                        <input type="number" name="nota1[]" min="0" max="10" class="notas">
+                        <input type="number" name="nota1[]" min="0" max="10" class="notas">
+                    </td>
+                    <td>
+                        <p id="informeAlumno1"></p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>#2</td>
+                    <td>Juan Pérez</td>
+                    <td>
+                        <input type="checkbox" name="asistenciaMes1_Al2[]" value="1">
+                        <input type="checkbox" name="asistenciaMes1_Al2[]" value="2">
+                        <input type="checkbox" name="asistenciaMes1_Al2[]" value="3">
+                        <input type="checkbox" name="asistenciaMes1_Al2[]" value="4">
+                        <input type="checkbox" name="asistenciaMes1_Al2[]" value="5"><br>
+                    </td>
+                    <td>
+                        <input type="number" name="nota2[]" min="0" max="10" class="notas">
+                        <input type="number" name="nota2[]" min="0" max="10" class="notas">
+                        <input type="number" name="nota2[]" min="0" max="10" class="notas">
+                    </td>
+                    <td>
+                        <p id="informeAlumno2"></p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>#3</td>
+                    <td>Pablo López</td>
+                    <td>
+                        <input type="checkbox" name="asistenciaMes1_Al3[]" value="1">
+                        <input type="checkbox" name="asistenciaMes1_Al3[]" value="2">
+                        <input type="checkbox" name="asistenciaMes1_Al3[]" value="3">
+                        <input type="checkbox" name="asistenciaMes1_Al3[]" value="4">
+                        <input type="checkbox" name="asistenciaMes1_Al3[]" value="5"><br>
+                    </td>
+                    <td>
+                        <input type="number" name="nota3[]" min="0" max="10" class="notas">
+                        <input type="number" name="nota3[]" min="0" max="10" class="notas">
+                        <input type="number" name="nota3[]" min="0" max="10" class="notas">
+                    </td>
+                    <td>
+                        <p id="informeAlumno3"></p>
+                    </td>
                 </tr>
             
             </table>
         </main>
 
         <aside>
-            <h3>Calendario de actividades</h3>
+            <h3>CALENDARIO DE ACTIVIDADES</h3>
             <p id="funcionFecha">¡Bienvenid@!</p>
         </aside>
 
     </section>
 
     <footer>
-        <p>Derechos Registrados &#174;</p>
+        <p>Derechos Registrados: Tam S. C. 2024&#174;</p>
     </footer>
 
     <script type="text/javascript"  src="js/miarchivo.js"></script>
