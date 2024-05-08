@@ -36,9 +36,31 @@ let mensajeBienvenida = document.getElementById('funcionFecha');
 funcionFecha.innerText = mensaje;
 
 
+////////// ASISTENCIAS
+
+let listaAsistencia = []
+
+function onclickCheckBox(event) {
+    const checkbox = event.target;
+    const checkboxValue = checkbox.value;
+
+    if (checkbox.checked) {
+        listaAsistencia.push(checkboxValue);
+    } else {
+    const index = listaAsistencia.indexOf(checkboxValue);
+    if (index !== -1) {
+        listaAsistencia.splice(index, 1);
+    }
+    }
+    console.log(listaAsistencia); // Imprimir el array CAMBIAR
+}
+
+
+
+
+
+
 /*
-
-
 ////////////////////// CALIFICACIONES
 
 if (opcion === "1") {
@@ -185,3 +207,23 @@ else if( opcion === "4"){
 }
 }
 */
+
+////////// TAREAS PENDIENTES (ASIDE)
+
+function sumarTarea(){
+    let sumarTareaInput = document.getElementById("tareasPendientes").value; //value para obtener el input escrito
+
+    let sumarTarea = document.createElement("li"); // crear el listado con el input
+    sumarTarea.textContent = sumarTareaInput + " ";
+
+    let botonBorrar = document.createElement("button");
+    botonBorrar.textContent = "Borrar";
+    botonBorrar.onclick = () => { sumarTarea.remove();} // boton remover
+
+    // hacer asociaciones: borrar "hijo" de sumar tarea, y sumar tarea "hijo" de listaDeTareas
+    sumarTarea.appendChild(botonBorrar); 
+    document.getElementById("listaDeTareas").appendChild(sumarTarea);
+
+    document.getElementById("tareasPendientes").value = ""; //Limpiar input
+
+}

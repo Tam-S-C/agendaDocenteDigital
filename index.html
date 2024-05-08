@@ -165,8 +165,8 @@
                 </tr>
                 <tr>
                     <th class="informeMes" colspan="4"> > INFORME MENSUAL >
-                        <label for="selector-alumno">Elige un alumno:</label>
-                        <select id="selector-alumno">
+                        <label for="selector-alumno1">Elige un alumno:</label>
+                        <select id="selector-alumno1">
                             <option value="Maria-Gomez">María Gómez</option>
                             <option value="Juan-Perez">Juan Pérez</option>
                             <option value="Pablo-Lopez">Pablo López</option>
@@ -192,11 +192,11 @@
                     <td>01</td>
                     <td>María Gómez</td>
                     <td>
-                        <input type="checkbox" name="asistenciaMeS3_Al1[]" value="1">
-                        <input type="checkbox" name="asistenciaMes3_Al1[]" value="2">
-                        <input type="checkbox" name="asistenciaMes3_Al1[]" value="3">
-                        <input type="checkbox" name="asistenciaMes3_Al1[]" value="4">
-                        <input type="checkbox" name="asistenciaMes3_Al1[]" value="5"><br>
+                        <input type="checkbox" class="checkbox" name="asistenciaMeS3_Al1[]" onclick="onclickCheckBox(event)" value="1">
+                        <input type="checkbox" class="checkbox" name="asistenciaMes3_Al1[]" onclick="onclickCheckBox(event)" value="2">
+                        <input type="checkbox" class="checkbox" name="asistenciaMes3_Al1[]" onclick="onclickCheckBox(event)" value="3">
+                        <input type="checkbox" class="checkbox" name="asistenciaMes3_Al1[]" onclick="onclickCheckBox(event)" value="4">
+                        <input type="checkbox" class="checkbox" name="asistenciaMes3_Al1[]" onclick="onclickCheckBox(event)" value="5"><br>
                     </td>
                     <td>
                         <input type="number" name="nota1[]" min="0" max="10" class="notas">
@@ -240,8 +240,8 @@
                 </tr>
                 <tr>
                     <th class="informeMes" colspan="4"> > INFORME MENSUAL >
-                        <label for="selector-alumno">Elige un alumno:</label>
-                        <select id="selector-alumno">
+                        <label for="selector-alumno2">Elige un alumno:</label>
+                        <select id="selector-alumno2">
                             <option value="Maria-Gomez">María Gómez</option>
                             <option value="Juan-Perez">Juan Pérez</option>
                             <option value="Pablo-Lopez">Pablo López</option>
@@ -254,8 +254,8 @@
                 <table>
                     <tr>
                         <th class="informeFinal" colspan="4"> > INFORME FINAL >
-                            <label for="selector-alumno">Elige un alumno:</label>
-                            <select id="selector-alumno">
+                            <label for="selector-alumno3">Elige un alumno:</label>
+                            <select id="selector-alumno3">
                                 <option value="Maria-Gomez">María Gómez</option>
                                 <option value="Juan-Perez">Juan Pérez</option>
                                 <option value="Pablo-Lopez">Pablo López</option>
@@ -271,6 +271,12 @@
         <aside>
             <h3>CALENDARIO DE ACTIVIDADES</h3>
             <p id="funcionFecha">¡Bienvenid@!</p>
+<br> <br>
+            <h3>TAREAS PENDIENTES</h3>
+            <input type="text" id="tareasPendientes" placeholder="Escriba una tarea nueva">
+            <button onclick="sumarTarea()">Sumar Tarea</button>
+            <ul id="listaDeTareas">
+            </ul>
         </aside>
 
     </section>
