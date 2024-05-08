@@ -11,33 +11,58 @@
 <body>
 
     <header>
+        <div><a href="index.html" target="_self"><img src="img/escuelaHome.png" class="buttons" alt="HOME" id="escuelaHomeImg"/></a></div>
         <div class="banner">
             <h1>Agenda Docente Digital</h1>
         </div>
         <div class="buttons">
             <button class="login">Iniciar Sesión</button>
             <button class="register">Registrarse</button>
+            <button class="contacto">Contacto</button>
         </div>
     </header>
-
-    <nav>
-        <ul>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Calificaciones</a></li>
-            <li><a href="#">Asistencias</a></li>
-            <li><a href="#">Cursos</a></li>
-        </ul>
-    </nav>
 
     <section>
 
         <main>
-            <h2> BIENVENIDO!</h2>
+            <h2>PLANILLA DE ASISTENCIA Y NOTAS</h2>
+
+            <table>
+
+                <tr>
+                <th>ID</th>
+                <th>ALUMNOS</th>
+                <th>ASISTENCIAS</th>
+                <th>NOTAS</th>
+                <th>INFORME</th>
+                </tr>
+
+                <tr>
+                <td>#1</td>
+                <td>María Gómez</td>
+                <td>
+                    <input type="checkbox" name="asistenciaMes1[]" value="1">
+                    <input type="checkbox" name="asistenciaMes1[]" value="2">
+                    <input type="checkbox" name="asistenciaMes1[]" value="3">
+                    <input type="checkbox" name="asistenciaMes1[]" value="4">
+                    <input type="checkbox" name="asistenciaMes1[]" value="5"><br>
+                </td>
+                <td>
+                    <input type="number" name="nota1[]" min="0" max="10" class="notas">
+                    <input type="number" name="nota1[]" min="0" max="10" class="notas">
+                    <input type="number" name="nota1[]" min="0" max="10" class="notas">
+                </td>
+                <td>
+                    <textarea name="informe" rows="1" cols="20"></textarea>
+                </td>
+                </tr>
+            
+            </table>
         </main>
 
         <aside>
             <h3>Calendario de actividades</h3>
-            <p>Acá irá con DOM la funcion de getDay con las materias del día.</p>
+            <p id="funcionFecha">¡Bienvenid@!</p>
         </aside>
 
     </section>

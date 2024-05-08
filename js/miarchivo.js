@@ -1,50 +1,42 @@
-/* CAMBIOS REALIZADOS EN LA SEGUNDA ENTREGA */
+/* CAMBIOS REALIZADOS: PRE-ENTREGA 3 */
 
-// Hacer escalable totalAsistencias --> CHECK
-// Hacer escabable cantidad de notas, con array y método .lenght --> CHECK
-// Cambiar los 2 while(true) --> CHECK
-// Hacer que el simulador completo esté en loop (volver al menu inicial o salir) --> CHECK
-// Cambiar switch del día de la semana por función--> CHECK
-// Sumar otro objeto además del Date: class materias --> CHECK
-
-/* En la entrega 3, la idea es que la class materias(op3) no venga ya completada, 
-sino que se capturen también los datos del docente para cada objeto/alumno, 
-pero como ahora como es por prompt y no se si uno va a usar directo la opción 4, 3, 2...en qué orden, 
-de ir directo a la opción 3 de la class quedarían los espacios vacíos si nos los llenaba yo, 
-por si antes no se pasaba por el rellenado de las opciones de asistencia o calificaciones. (espero que se entienda la aclaración).*/
+// Info de materias con DATE en aside
+// Planilla con checks para asistencias
+// Planilla con inputs para notas
+// innerText para info de Promedio y estado
+// Sumar storage/JSON
 
 
-// PROMPT 1 (Saludo + día + materias + opciones)
+////////// ASIDE CON LAS FECHA + MATERIAS
 
-// Uso de función con parámetro + uso de Return + más uso de array para sacar con el índice el día de la semana.
+let fecha = new Date();
+let diaSemana = fecha.getDay();
+let mensaje = "¡Bienvenid@! \n\n Hoy es " + obtenerNombreDia(diaSemana) + ".\n" + obtenerMensaje(diaSemana);
+
 function obtenerNombreDia(dia) {
     const nombresDias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
     return nombresDias[dia];
 }
 
-// Mensaje de materias con uso de objeto para mapear los mensajes según el día de la semana (con .getDay)
 function obtenerMensaje(diaSemana) {
     let mensajes = {
         0: "Hoy es día de descanso laboral :) .",
-        1: "Fuerzas tú puedes! \n Tienes clases de: \n -Aritmética en la Escuela Nº11 a las 10hs. \n -Geometría en la Escuela Nº30 a las 12hs.",
-        2: "Hoy sólo tienes clases de: \n -Aritmética en la Escuela Nº30 a las 10hs.",
-        3: "Vamos por la mitad de la semana! \n Tienes clases de: \n -Aritmética en la Escuela Nº11 a las 10hs. \n -Geometría en la Escuela Nº30 a las 12hs.",
-        4: "Vamos que hoy sólo tienes una clase! \n Tienes clases de: \n -Geometría en la Escuela Nº11 a las 10hs.",
-        5: "Último esfuerzo! \n Tienes clases de: \n -Aritmética en la Escuela Nº11 a las 10hs. \n -Geometría en la Escuela Nº30 a las 12hs.",
+        1: "Fuerzas tú puedes! \n\n Tienes clases de: \n\n -Aritmética en la Esc. Nº11 a las 10hs. \n -Geometría en la Esc. Nº30 a las 12hs.",
+        2: "Hoy sólo tienes clases de: \n\n -Aritmética en la Esc. Nº30 a las 10hs.",
+        3: "Vamos por la mitad de la semana! \n\n Tienes clases de: \n\n -Aritmética en la Esc. Nº11 a las 10hs. \n -Geometría en la Esc. Nº30 a las 12hs.",
+        4: "Vamos que hoy sólo tienes una clase! \n\n Tienes clases de: \n\n -Geometría en la Esc. Nº11 a las 10hs.",
+        5: "Último esfuerzo! \n\n Tienes clases de: \n\n -Aritmética en la Esc. Nº11 a las 10hs. \n\n -Geometría en la Esc. Nº30 a las 12hs.",
         6: "¡Es fin de semana! A disfrutar :)"
     };
     return mensajes[diaSemana];
 }
 
-// Uso de función para obtener el mensaje del día
-let fecha = new Date();
-let diaSemana = fecha.getDay();
-let mensaje = "¡Bienvenid@! Hoy es " + obtenerNombreDia(diaSemana) + ".\n" + obtenerMensaje(diaSemana);
+// DOM
+let mensajeBienvenida = document.getElementById('funcionFecha');
+funcionFecha.innerText = mensaje;
 
-// Elección asistencia o calificaciones con uso de prompt
-let opcion = "";
-while( opcion !== "4") {
-opcion = prompt(mensaje + "\n\n ¿Qué deseas hacer hoy? \n Teclea: \n 1: para ver calificaciones \n 2: para ver asistencias \n 3: para ver estado completo de alumnos \n 4: para salir.");
+
+/*
 
 
 ////////////////////// CALIFICACIONES
@@ -192,3 +184,4 @@ else if( opcion === "4"){
     alert("Opción no disponible. Por favor elige una opción válida.");
 }
 }
+*/

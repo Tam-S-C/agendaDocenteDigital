@@ -1,27 +1,32 @@
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
 header {
-    background-color: #ffffcc;
-    padding: 20px;
+    background-color: #ace9ff;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+#escuelaHomeImg {
+    margin-right: 15px;
+}
+
 .banner h1 {
     margin: 0;
-    font-size: 24px;
+    font-size: 28px;
+    font-weight: 100;
 }
 
 .buttons button {
     margin-left: 10px;
-    padding: 8px 16px;
+    padding: 5px 16px;
     border: none;
     background-color: transparent;
     cursor: pointer;
@@ -32,43 +37,33 @@ header {
     background-color: #aaf0d1;
 }
 
-nav {
-    background-color: #D7D7ED;
-    padding: 10px;
-}
-
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex
-}
-
-nav ul li {
-    margin-right: 30px;
-    margin-left: 10px;
-}
-
-nav ul li a {
-    text-decoration: none;
-}
-
-nav ul li a:hover {
-    color: #2d0602;
-}
-
 section{
-    width: 90%;
-    margin: 30px auto;
+    width: 95%;
+    margin: 20px auto;
     display: grid;
     grid-template-columns: 3fr 1fr;
 }
 
 main {
-    background-color: #D7D7ED;
+    background-color: #aaf0d1;
     text-align: center;
     padding: 10px;
     border-radius: 15px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 3px solid white;
+    padding: 5px;
+    text-align: center;
+}
+
+.notas {
+    width: 30px;
 }
 
 aside {
@@ -81,6 +76,7 @@ aside {
 
 footer {
     background-color: #D7D7ED;
+    font-size: 14px;
     text-align: center;
     padding: 10px;
     display: flex;
@@ -91,4 +87,19 @@ footer {
 
 footer p {
     margin: 0;
+}
+
+@media (max-width: 900px) {
+    section{
+        width: 95%;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        margin: 20px;
+    }
+
+    aside{
+        margin: 10px 0px 0px 0px;
+        font-size: 14px;
+    }
 }
