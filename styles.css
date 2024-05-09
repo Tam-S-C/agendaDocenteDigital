@@ -49,6 +49,7 @@ main {
     text-align: center;
     padding: 10px;
     border-radius: 15px;
+    box-shadow: 3px 3px 0px #41b480d9;
 }
 
 table {
@@ -89,6 +90,7 @@ aside {
     border-radius: 15px;
     margin: 0 0 0 20px;
     font-size: 14px;
+    box-shadow: 3px 3px 0px #8989bfc7;
 }
 
 ul {
@@ -118,15 +120,18 @@ button:hover {
 /*css contacto*/
 
 #contacto {
-    background-color: #D7D7ED;
+    text-align: center;
+    width: 94%;
+    margin: 20px auto;
+    background-color: #ace9ff;
     padding: 10px;
     border-radius: 15px;
-    margin: 20px 0 20px 0;
     font-size: 14px;
+    box-shadow: 3px 3px 0px #70b2c9;
 }
 
 #borde-fieldset {
-    border: 3px solid white;
+    border: none;
 }
 
 .botonContacto {
@@ -136,9 +141,22 @@ button:hover {
     box-shadow: 3px 3px 0px #8989bfc7;
 }
 
-#nombre, #email, #comentario, #apellido {
+#nombre, #apellido {
     border-radius: 10px;
     border-color: #D7D7ED;
+    width: 250px;
+}
+
+#email {
+    border-radius: 10px;
+    border-color: #D7D7ED;
+    width: 265px;
+}
+
+#comentario {
+    border-radius: 10px;
+    border-color: #D7D7ED;
+    width: 315px;
 }
 
 .botonContacto:hover{
@@ -149,7 +167,7 @@ button:hover {
 
 #comentario {
     resize: vertical;
-    min-height: 30px;
+    min-height: 30px
 }
 
 /*css footer*/
@@ -190,13 +208,14 @@ footer p {
         margin: 20px;
     }
 
+    #contacto {
+        width: 90%;
+        margin: auto;
+    }
+
     aside{
         margin: 15px 0px 0px 0px;
         font-size: 14px;
-    }
-
-    #nombre, #email, #apellido {
-        width: 150px;
     }
 
     footer p {
