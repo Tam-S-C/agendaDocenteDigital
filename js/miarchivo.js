@@ -1,13 +1,16 @@
 /* CAMBIOS REALIZADOS: PRE-ENTREGA 3 */
 
 // Info de materias con DATE en aside
+// Listado de tareas pendientes
 // Planilla con checks para asistencias
 // Planilla con inputs para notas
 // innerText para info de Promedio y estado
 // Sumar storage/JSON
 
 
-////////// ASIDE CON LAS FECHA + MATERIAS
+//////////////////////////////////////// ASIDE 
+
+////////// Mensaje con FECHA + MATERIAS
 
 let fecha = new Date();
 let diaSemana = fecha.getDay();
@@ -35,6 +38,29 @@ function obtenerMensaje(diaSemana) {
 let mensajeBienvenida = document.getElementById('funcionFecha');
 funcionFecha.innerText = mensaje;
 
+
+////////// TAREAS PENDIENTES (ASIDE)
+
+function sumarTarea(){
+    let sumarTareaInput = document.getElementById("tareasPendientes").value; //value para obtener el input escrito
+
+    let sumarTarea = document.createElement("li"); // crear el listado con el input
+    sumarTarea.textContent = sumarTareaInput + " ";
+
+    let botonBorrar = document.createElement("button");
+    botonBorrar.textContent = "Borrar";
+    botonBorrar.onclick = () => { sumarTarea.remove();} // boton remover
+
+    // hacer asociaciones: borrar > "hijo" de sumar tarea, y sumar tarea > "hijo" de listaDeTareas
+    sumarTarea.appendChild(botonBorrar); 
+    document.getElementById("listaDeTareas").appendChild(sumarTarea);
+
+    document.getElementById("tareasPendientes").value = ""; //Limpiar input
+
+}
+
+
+//////////////////////////////////////// MAIN
 
 ////////// ASISTENCIAS
 
@@ -208,22 +234,34 @@ else if( opcion === "4"){
 }
 */
 
-////////// TAREAS PENDIENTES (ASIDE)
+//////////////////////////////////////// FORMULARIO DE CONTACTO
 
-function sumarTarea(){
-    let sumarTareaInput = document.getElementById("tareasPendientes").value; //value para obtener el input escrito
+function enviarFormulario(event) {
+    event.preventDefault();
 
-    let sumarTarea = document.createElement("li"); // crear el listado con el input
-    sumarTarea.textContent = sumarTareaInput + " ";
+    // Obtener las dimensiones de la ventana principal
+    let ventanaPrincipalAncho = window.innerWidth;
+    let ventanaPrincipalAlto = window.innerHeight;
 
-    let botonBorrar = document.createElement("button");
-    botonBorrar.textContent = "Borrar";
-    botonBorrar.onclick = () => { sumarTarea.remove();} // boton remover
+    // Calcular la posición de la ventana emergente para que esté centrada
+    let popupAncho = 350; // Ancho de la ventana emergente
+    let popupAlto = 120;   // Alto de la ventana emergente
+    let left = (ventanaPrincipalAncho - popupAncho) / 2;  // div 2 la medida para que quede centrada
+    let top = (ventanaPrincipalAlto - popupAlto) / 2; // div 2 la medida para que quede centrada
 
-    // hacer asociaciones: borrar "hijo" de sumar tarea, y sumar tarea "hijo" de listaDeTareas
-    sumarTarea.appendChild(botonBorrar); 
-    document.getElementById("listaDeTareas").appendChild(sumarTarea);
+    // Para crear la ventana emergente + medidas y ubicación 
+    let popup = window.open("", "Popup", "width=" + popupAncho + ", height=" + popupAlto + ", top=" + top + ", left=" + left );
 
-    document.getElementById("tareasPendientes").value = ""; //Limpiar input
+    // Estilos CSS dentro de JS
+    popup.document.write("<style>body { background-color: #D7D7ED; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; }</style>");
+    popup.document.write("<p style='font-weight: bold; color: #978FC5; font-size: 20px;'>Mensaje enviado! =) Gracias!</p>");
+    popup.document.write('<html><head><title>arTamCrafts</title></head><body>');
+    popup.document.write('</body></html>');
+
+    // Restablecer el formulario luego de enviarlo
+    document.getElementById("formulario").reset();
+
+    // Cerrar popup después de 4 seg.
+    setTimeout(() => { popup.close(); }, 4000); 
 
 }

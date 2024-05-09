@@ -34,6 +34,7 @@ header {
 
 .buttons button:hover {
     background-color: #aaf0d1;
+    border-radius: 20px;
 }
 
 section{
@@ -110,7 +111,48 @@ button {
 
 button:hover {
     background-color: #aaf0d1;
+    border-radius: 20px;
+    transition: 0.5s;
 }
+
+/*css contacto*/
+
+#contacto {
+    background-color: #D7D7ED;
+    padding: 10px;
+    border-radius: 15px;
+    margin: 20px 0 20px 0;
+    font-size: 14px;
+}
+
+#borde-fieldset {
+    border: 3px solid white;
+}
+
+.botonContacto {
+    padding: 5px;
+    border-radius: 15px;
+    margin: 0px 10px 0px 0px;
+    box-shadow: 3px 3px 0px #8989bfc7;
+}
+
+#nombre, #email, #comentario, #apellido {
+    border-radius: 10px;
+    border-color: #D7D7ED;
+}
+
+.botonContacto:hover{
+    background: #aaf0d1;
+    font-weight: 500;
+    transition: 0.5s;
+}
+
+#comentario {
+    resize: vertical;
+    min-height: 30px;
+}
+
+/*css footer*/
 
 footer {
     background-color: #D7D7ED;
@@ -126,6 +168,7 @@ footer {
 footer p {
     margin: 0;
 }
+
 
 /* RESPONSIVE tablets*/
 
@@ -150,6 +193,10 @@ footer p {
     aside{
         margin: 15px 0px 0px 0px;
         font-size: 14px;
+    }
+
+    #nombre, #email, #apellido {
+        width: 150px;
     }
 
     footer p {
