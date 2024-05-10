@@ -16,16 +16,22 @@
             <h1>Agenda Docente Digital</h1>
         </div>
         <div class="buttons">
-            <button class="login">Iniciar Sesión</button>
-            <button class="register">Registrarse</button>
-            <a href="#contacto"><button class="contacto">Contacto</button></a>
+            <form id="nombreFormulario">
+                <button type="submit" id="login">Iniciar Sesión</button>
+                <input type="text" id="inputNombreDocente" placeholder="Tu nombre">
+            </form>
+                <a href="#contacto"><button class="contacto">Contacto</button></a>
         </div>
     </header>
+
+<!-------- MAIN -------->
 
     <section>
 
         <main>
             <h2>PLANILLA DE ASISTENCIA Y NOTAS</h2>
+
+<!-------- MARZO -------->
 
             <table>
                 <tr>
@@ -92,6 +98,7 @@
                     <th class="informeMes" colspan="4"> > INFORME MENSUAL >
                         <label for="selector-alumno">Elige un alumno:</label>
                         <select id="selector-alumno">
+                            <option value="Alumnos">Alumnos</option>
                             <option value="Maria-Gomez">María Gómez</option>
                             <option value="Juan-Perez">Juan Pérez</option>
                             <option value="Pablo-Lopez">Pablo López</option>
@@ -101,6 +108,7 @@
             </table>
 
 <br>
+<!-------- ABRIL -------->
 
             <table>
                 <tr>
@@ -167,6 +175,7 @@
                     <th class="informeMes" colspan="4"> > INFORME MENSUAL >
                         <label for="selector-alumno1">Elige un alumno:</label>
                         <select id="selector-alumno1">
+                            <option value="Alumnos">Alumnos</option>
                             <option value="Maria-Gomez">María Gómez</option>
                             <option value="Juan-Perez">Juan Pérez</option>
                             <option value="Pablo-Lopez">Pablo López</option>
@@ -176,6 +185,7 @@
             </table>
 
 <br>
+<!-------- MAYO -------->
 
             <table>
                 <tr>
@@ -242,6 +252,7 @@
                     <th class="informeMes" colspan="4"> > INFORME MENSUAL >
                         <label for="selector-alumno2">Elige un alumno:</label>
                         <select id="selector-alumno2">
+                            <option value="Alumnos">Alumnos</option>
                             <option value="Maria-Gomez">María Gómez</option>
                             <option value="Juan-Perez">Juan Pérez</option>
                             <option value="Pablo-Lopez">Pablo López</option>
@@ -251,11 +262,14 @@
             </table>
 
 <br>
+<!-------- FINAL -------->
+
                 <table>
                     <tr>
                         <th class="informeFinal" colspan="4"> > INFORME FINAL >
                             <label for="selector-alumno3">Elige un alumno:</label>
                             <select id="selector-alumno3">
+                                <option value="Alumnos">Alumnos</option>
                                 <option value="Maria-Gomez">María Gómez</option>
                                 <option value="Juan-Perez">Juan Pérez</option>
                                 <option value="Pablo-Lopez">Pablo López</option>
@@ -268,9 +282,12 @@
 
         </main>
 
+<!-------- ASIDE -------->
+
         <aside>
             <h3>CALENDARIO DE ACTIVIDADES</h3>
-            <p id="funcionFecha">¡Bienvenid@!</p>
+            <p id="nombreDocente"></p>
+            <p id="funcionFecha"></p>
 <br> <br>
             <h3>TAREAS PENDIENTES</h3>
             <input type="text" id="tareasPendientes" placeholder="Escriba una tarea nueva">
@@ -279,6 +296,8 @@
             </ul>
         </aside>
     </section>
+
+<!-------- CONTACTO -------->
 
     <div id="contacto">
         <h3>CONTACTO</h3>
@@ -310,6 +329,8 @@
                 <br>
         </div>
 <br><br>
+
+<!-------- FOOTER -------->
 
     <footer>
         <p>Derechos Registrados: Tam S. C. 2024&#174;</p>

@@ -1,20 +1,55 @@
 /* CAMBIOS REALIZADOS: PRE-ENTREGA 3 */
 
 // Info de materias con DATE en aside
-// Listado de tareas pendientes
+// Sumar storage/JSON y evento al inicio de sesión + devolver nombre en el bienvenido del aside
+// Listado de tareas pendientes (onclick, crear elementos y remove)
 // Planilla con checks para asistencias
 // Planilla con inputs para notas
 // innerText para info de Promedio y estado
-// Sumar storage/JSON
+// SUGAR SYNTAX 
+
+/* Para la entrega final, lo ideal sería sumar que también se guarde 
+en localstorage la info de las notas, asistencias e informes, 
+incluso ver si sumar la funcionalidad de cambiar de curso/materia 
+y agregar/eliminar alumnos y cantidad de notas/asistencias.
+Y soñando un poco, hacer que a los aprobados se cree automático un certificado */
 
 
 //////////////////////////////////////// ASIDE 
+
+////////// BIENVENIDO DOCENTE con localStorage
+
+function mostrarNombreDocente(){
+    let nombreSesionDocente = document.getElementById("nombreDocente");
+    let nombreGuardado = JSON.stringify(localStorage.getItem("nombre"));
+    if (nombreGuardado){
+        nombreSesionDocente.textContent = "¡Bienvenid@ " + nombreGuardado + "!";
+    }else{
+        nombreSesionDocente.textContent = "¡Bienvenid@ Docente!";
+    }
+}
+
+function guardarNombre(event){
+    event.preventDefault();
+    let nombre = document.getElementById("inputNombreDocente").value;
+    localStorage.setItem("nombre", nombre);
+    mostrarNombreDocente();
+    document.getElementById("inputNombreDocente").value = ""; //Limpiar input
+}
+
+let nombreForm = document.getElementById("nombreFormulario")
+let escucharSubmit = document.addEventListener("submit", guardarNombre);
+
+document.addEventListener("DOMContentLoaded", mostrarNombreDocente);
+
+
+
 
 ////////// Mensaje con FECHA + MATERIAS
 
 let fecha = new Date();
 let diaSemana = fecha.getDay();
-let mensaje = "¡Bienvenid@! \n\n Hoy es " + obtenerNombreDia(diaSemana) + ".\n" + obtenerMensaje(diaSemana);
+let mensaje = "¡Hoy es " + obtenerNombreDia(diaSemana) + ".\n" + obtenerMensaje(diaSemana);
 
 function obtenerNombreDia(dia) {
     const nombresDias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
@@ -43,7 +78,7 @@ funcionFecha.innerText = mensaje;
 
 function sumarTarea(){
     let sumarTareaInput = document.getElementById("tareasPendientes").value; //value para obtener el input escrito
-
+    
     let sumarTarea = document.createElement("li"); // crear el listado con el input
     sumarTarea.textContent = sumarTareaInput + " ";
 
@@ -237,7 +272,7 @@ else if( opcion === "4"){
 //////////////////////////////////////// FORMULARIO DE CONTACTO
 
 function enviarFormulario(event) {
-    event.preventDefault();
+    event.preventDefault(); //prevencion por defecto + en html estan los valores "requerido en cada campo"
 
     // Obtener las dimensiones de la ventana principal
     let ventanaPrincipalAncho = window.innerWidth;
@@ -255,7 +290,7 @@ function enviarFormulario(event) {
     // Estilos CSS dentro de JS
     popup.document.write("<style>body { background-color: #D7D7ED; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; }</style>");
     popup.document.write("<p style='font-weight: bold; color: #978FC5; font-size: 20px;'>Mensaje enviado! =) Gracias!</p>");
-    popup.document.write('<html><head><title>arTamCrafts</title></head><body>');
+    popup.document.write('<html><head><title>Agenda Docente Digital</title></head><body>');
     popup.document.write('</body></html>');
 
     // Restablecer el formulario luego de enviarlo
