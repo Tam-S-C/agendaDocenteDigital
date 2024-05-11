@@ -1,47 +1,46 @@
 /* CAMBIOS REALIZADOS: PRE-ENTREGA 3 */
 
-// Info de materias con DATE en aside
-// Sumar storage/JSON y evento al inicio de sesión + devolver nombre en el bienvenido del aside
-// Listado de tareas pendientes (onclick, crear elementos y remove)
+// Info de materias con DATE en aside con innerText
+// Sumar storage y evento al inicio de sesión + devolver nombre en el bienvenido del aside
+// Listado de tareas pendientes (onclick, crear elementos y remove) + LOCALSTORAGE Y JSON
 // Planilla con checks para asistencias
 // Planilla con inputs para notas
 // innerText para info de Promedio y estado
-// SUGAR SYNTAX 
+// SUGAR SYNTAX en linea 26
+
 
 /* Para la entrega final, lo ideal sería sumar que también se guarde 
 en localstorage la info de las notas, asistencias e informes, 
 incluso ver si sumar la funcionalidad de cambiar de curso/materia 
 y agregar/eliminar alumnos y cantidad de notas/asistencias.
-Y soñando un poco, hacer que a los aprobados se cree automático un certificado */
+Y soñando un poco, hacer que a los aprobados se cree automático un certificado 
++ a esto sumarle asincronía para la espera del armado del crtificado
++ cambiar ventana de "mensaje enviado" en el form de contacto por uso de SweetAlert2*/
 
 
 //////////////////////////////////////// ASIDE 
 
-////////// BIENVENIDO DOCENTE con localStorage
+////////// BIENVENIDO DOCENTE + inicio sesión con localStorage + sugar syntax
 
 function mostrarNombreDocente(){
     let nombreSesionDocente = document.getElementById("nombreDocente");
-    let nombreGuardado = JSON.stringify(localStorage.getItem("nombre"));
-    if (nombreGuardado){
-        nombreSesionDocente.textContent = "¡Bienvenid@ " + nombreGuardado + "!";
-    }else{
-        nombreSesionDocente.textContent = "¡Bienvenid@ Docente!";
-    }
+    let nombreGuardado = localStorage.getItem('nombre');
+    
+    nombreSesionDocente.textContent = nombreGuardado ? "¡Bienvenid@ " + nombreGuardado + "!" : "¡Bienvenid@ Docente!"; // uso de sugar sintax
 }
 
 function guardarNombre(event){
     event.preventDefault();
     let nombre = document.getElementById("inputNombreDocente").value;
-    localStorage.setItem("nombre", nombre);
+    localStorage.setItem('nombre', nombre);
     mostrarNombreDocente();
-    document.getElementById("inputNombreDocente").value = ""; //Limpiar input
 }
+
 
 let nombreForm = document.getElementById("nombreFormulario")
 let escucharSubmit = document.addEventListener("submit", guardarNombre);
 
 document.addEventListener("DOMContentLoaded", mostrarNombreDocente);
-
 
 
 
@@ -76,66 +75,87 @@ funcionFecha.innerText = mensaje;
 
 ////////// TAREAS PENDIENTES (ASIDE)
 
-function sumarTarea(){
-    let sumarTareaInput = document.getElementById("tareasPendientes").value; //value para obtener el input escrito
-    
-    let sumarTarea = document.createElement("li"); // crear el listado con el input
-    sumarTarea.textContent = sumarTareaInput + " ";
+function sumarTarea() {
+    let sumarTareaInput = document.getElementById("tareasPendientes").value.trim(); // Obtener el valor del input y quitar espacios en blanco
 
-    let botonBorrar = document.createElement("button");
-    botonBorrar.textContent = "Borrar";
-    botonBorrar.onclick = () => { sumarTarea.remove();} // boton remover
+    if (sumarTareaInput === "") {
+        return; // Si el input está vacío, salir de la función sin hacer nada
+    }
 
-    // hacer asociaciones: borrar > "hijo" de sumar tarea, y sumar tarea > "hijo" de listaDeTareas
-    sumarTarea.appendChild(botonBorrar); 
-    document.getElementById("listaDeTareas").appendChild(sumarTarea);
+    let tarea = {
+        nombre: sumarTareaInput,
+        completada: false
+    };
 
-    document.getElementById("tareasPendientes").value = ""; //Limpiar input
+    let tareas = JSON.parse(localStorage.getItem('tareas')) || []; // Obtener del localStorage o ver si esta vacia
+    tareas.push(tarea);
+    localStorage.setItem('tareas', JSON.stringify(tareas)); // Guardar al local
 
+    mostrarTareas(); // Llamar a la función para mostrar las tareas (para actualizar la lista en la pantalla)
+
+    document.getElementById("tareasPendientes").value = ""; // Limpiar el input
 }
+
+function mostrarTareas() {
+    let listaDeTareas = document.getElementById("listaDeTareas");
+    listaDeTareas.innerHTML = ""; // Limpiar la lista antes de volver a crearla
+
+    let tareas = JSON.parse(localStorage.getItem('tareas')) || []; // Obtener y parsear con JSON
+
+    tareas.forEach(tarea => {
+        let tareaElemento = document.createElement("li");
+        tareaElemento.textContent = tarea.nombre + " ";
+
+        let botonBorrar = document.createElement("button");
+        botonBorrar.textContent = "Borrar";
+        botonBorrar.onclick = () => {
+            // borrar y actualizar el local
+            tareas = tareas.filter(cadaTarea => cadaTarea !== tarea);
+            localStorage.setItem('tareas', JSON.stringify(tareas));
+
+            mostrarTareas();
+        };
+
+        tareaElemento.appendChild(botonBorrar);
+        listaDeTareas.appendChild(tareaElemento);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", mostrarTareas);
 
 
 //////////////////////////////////////// MAIN
 
 ////////// ASISTENCIAS
 
-let listaAsistencia = []
-
-function onclickCheckBox(event) {
-    const checkbox = event.target;
-    const checkboxValue = checkbox.value;
-
-    if (checkbox.checked) {
-        listaAsistencia.push(checkboxValue);
-    } else {
-    const index = listaAsistencia.indexOf(checkboxValue);
-    if (index !== -1) {
-        listaAsistencia.splice(index, 1);
-    }
-    }
-    console.log(listaAsistencia); // Imprimir el array CAMBIAR
+// PORCENTAJE
+function calcularPorcentajeAsistencia() {
+    let checkboxesChecked = document.querySelectorAll(".checkboxMes1Alumno1:checked");
+    let totalCheckbox = 5;
+    let porcentajeAsistencia = Math.round((checkboxesChecked.length / totalCheckbox) * 100);
+    return porcentajeAsistencia;
 }
 
+// Función para actualizar el mensaje de asistencia
+function actualizarMensajeAsistencia() {
+    let porcentajeAsistencia = calcularPorcentajeAsistencia();
+    let mensajeAsistencia = document.getElementById("mensajeAsistencia");
+    mensajeAsistencia.innerText = "El alumno tiene un " + porcentajeAsistencia + "% de asistencia el primer mes.";
+}
 
+// Obtener todos los checkboxes y agregar un listener de eventos a cada uno
+let checkboxes = document.querySelectorAll(".checkboxMes1Alumno1");
+checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        actualizarMensajeAsistencia();
+    });
+});
 
-
-
+// Llamar a la función para actualizar el mensaje de asistencia cuando se cargue la página
+actualizarMensajeAsistencia();
 
 /*
 ////////////////////// CALIFICACIONES
-
-if (opcion === "1") {
-    let opcion1 = ""; 
-
-    // Elegir alumno
-
-    while (opcion1 !== "1" && opcion1 !== "2" && opcion1 !== "3") {
-        opcion1 = prompt("Elige un alumno: \n 1: María Rodriguez  \n 2: Juan Perez \n 3: Pablo Lopez");
-
-        if (opcion1 !== "1" && opcion1 !== "2" && opcion1 !== "3") {
-            alert("Opción incorrecta. Por favor, elige una opción válida."); //Si no se le vuelve a preguntar
-        }
-    }
 
 // ARRAY notas para hacerlo escalable y que se puedan ingresar la cantidad de notas que quiera el docente.
     let notas = [];

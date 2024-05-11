@@ -18,7 +18,7 @@
         <div class="buttons">
             <form id="nombreFormulario">
                 <button type="submit" id="login">Iniciar Sesión</button>
-                <input type="text" id="inputNombreDocente" placeholder="Tu nombre">
+                <input type="text" id="inputNombreDocente" placeholder= " Tu nombre">
             </form>
                 <a href="#contacto"><button class="contacto">Contacto</button></a>
         </div>
@@ -48,11 +48,11 @@
                     <td>01</td>
                     <td>María Gómez</td>
                     <td>
-                        <input type="checkbox" name="asistenciaMes1_Al1[]" value="1">
-                        <input type="checkbox" name="asistenciaMes1_Al1[]" value="2">
-                        <input type="checkbox" name="asistenciaMes1_Al1[]" value="3">
-                        <input type="checkbox" name="asistenciaMes1_Al1[]" value="4">
-                        <input type="checkbox" name="asistenciaMes1_Al1[]" value="5"><br>
+                        <input type="checkbox" name="asistenciaMes1_Al1[]" value="1" id="checkboxMes1Alumno1">
+                        <input type="checkbox" name="asistenciaMes1_Al1[]" value="2" id="checkboxMes1Alumno1">
+                        <input type="checkbox" name="asistenciaMes1_Al1[]" value="3" id="checkboxMes1Alumno1">
+                        <input type="checkbox" name="asistenciaMes1_Al1[]" value="4" id="checkboxMes1Alumno1">
+                        <input type="checkbox" name="asistenciaMes1_Al1[]" value="5" id="checkboxMes1Alumno1"><br>
                     </td>
                     <td>
                         <input type="number" name="nota1[]" min="0" max="10" class="notas">
@@ -103,6 +103,7 @@
                             <option value="Juan-Perez">Juan Pérez</option>
                             <option value="Pablo-Lopez">Pablo López</option>
                         </select>
+                        <p id="mensajeAsistencia"></p>
                     </th>
                 </tr>
             </table>
