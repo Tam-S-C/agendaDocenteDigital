@@ -4,7 +4,7 @@
 // Sumar storage y evento al inicio de sesión + devolver nombre en el bienvenido del aside
 // Listado de tareas pendientes (onclick, crear elementos y remove) + LOCALSTORAGE Y JSON
 // Planilla con checks para asistencias + notas con innerText con regularidad y promedio
-// SUGAR SYNTAX en lineas: 27 saludo de bienvenido, en funcion promedio aprobado:desaprobado
+// SUGAR SYNTAX en linea, 30 saludo de bienvenido, en funcion promedio aprobado:desaprobado
 // y en estado regular:irregular.
 
 
@@ -13,7 +13,7 @@ en localstorage la info de las notas, asistencias e informes,
 incluso ver si sumar la funcionalidad de cambiar de curso/materia 
 y agregar/eliminar alumnos y cantidad de notas/asistencias.
 Además, ver de mejorar el código para no repetirlo con cada alumno, 
-pero por temas tiempos tuve que dejarlo así pretitiéndolo.
+pero por temas tiempos tuve que dejarlo así repitiéndolo.
 Y soñando un poco, hacer que a los aprobados se les cree automático un certificado 
 + a esto sumarle asincronía para la espera del armado del crtificado
 + cambiar ventana de "mensaje enviado" en el form de contacto por uso de SweetAlert2*/
@@ -37,12 +37,10 @@ function guardarNombre(event){
     mostrarNombreDocente();
 }
 
-
 let nombreForm = document.getElementById("nombreFormulario")
 let escucharSubmit = document.addEventListener("submit", guardarNombre);
 
 document.addEventListener("DOMContentLoaded", mostrarNombreDocente);
-
 
 
 ////////// Mensaje con FECHA + MATERIAS
@@ -74,21 +72,19 @@ let mensajeBienvenida = document.getElementById('funcionFecha');
 funcionFecha.innerText = mensaje;
 
 
-////////// TAREAS PENDIENTES (ASIDE)
+////////// TAREAS PENDIENTES (ASIDE) con localStorage + JSON
 
 function sumarTarea() {
     let sumarTareaInput = document.getElementById("tareasPendientes").value; // Obtener el valor del input
-
     let tarea = {
         nombre: sumarTareaInput,
         completada: false
     };
-
     let tareas = JSON.parse(localStorage.getItem('tareas')) || []; // Obtener del localStorage o ver si esta vacia
     tareas.push(tarea);
     localStorage.setItem('tareas', JSON.stringify(tareas)); // Guardar al local
 
-    mostrarTareas(); // Llamar a la función para mostrar las tareas (para actualizar la lista en la pantalla)
+    mostrarTareas(); // actualizar la lista en la pantalla
 
     document.getElementById("tareasPendientes").value = ""; // Limpiar el input
 }
@@ -109,17 +105,13 @@ function mostrarTareas() {
             // borrar y actualizar el local
             tareas = tareas.filter(cadaTarea => cadaTarea !== tarea);
             localStorage.setItem('tareas', JSON.stringify(tareas));
-
             mostrarTareas();
         };
-
         tareaElemento.appendChild(botonBorrar);
         listaDeTareas.appendChild(tareaElemento);
     });
 }
-
 document.addEventListener("DOMContentLoaded", mostrarTareas);
-
 
 
 //////////////////////////////////////// FORMULARIO DE CONTACTO
@@ -154,10 +146,7 @@ function enviarFormulario(event) {
 }
 
 
-
 //////////////////////////////////////// MAIN
-
-
 
 
 //////////////////////////////////////////////////////// ASISTENCIAS y NOTAS con Mes 1 y alumno 1
@@ -168,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let mensajeNota = document.getElementById("mensajeNota");
     let notasInputs = document.querySelectorAll(".notas1");
 
-    //ASISTENCIA
+//ASISTENCIA
     function calcularPorcentajeAsistencia() {
         let checkboxesChecked = document.querySelectorAll(".checkboxMes1Alumno1:checked");
         let totalCheckbox = 5;
@@ -176,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return porcentajeAsistencia;
     }
 
-    //PROMEDIO
+//PROMEDIO
     function calcularPromedioNotas() {
         let sumaNotas = 0;
         let cantidadNotas = 0;
@@ -189,12 +178,12 @@ document.addEventListener("DOMContentLoaded", function() {
         return promedio;
     }
 
-    //ESTADO PROMEDIO
+//ESTADO PROMEDIO
     function calcularEstado(promedio) {
         return promedio >= 7 ? "Aprobado" : "Desaprobado";
     }
 
-    //ACTUALIZAR DATOS
+//ACTUALIZAR DATOS
     function actualizarDatos(nombreAlumno) {
         let porcentajeAsistencia = calcularPorcentajeAsistencia();
         let promedioNotas = calcularPromedioNotas();
@@ -205,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function() {
         mensajeNota.innerText = `${nombreAlumno} tiene un promedio de notas de ${promedioNotas}. Estado: ${estado}`;
     }
 
-    //ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
+//ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
     selectAlumno.addEventListener("change", function() {
         let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
         if (selectAlumno.value === "Maria-Gomez") {
@@ -216,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // ESCUCHAR ASISTENCIAS 
+// ESCUCHAR ASISTENCIAS 
     document.querySelectorAll(".checkboxMes1Alumno1").forEach(function(checkbox) {
         checkbox.addEventListener("change", function() {
             let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
@@ -226,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // ESCUCHAR NOTAS
+// ESCUCHAR NOTAS
     notasInputs.forEach(function(input) {
         input.addEventListener('input', function() {
             let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
@@ -237,7 +226,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-
 ////////// ASISTENCIAS y NOTAS con Mes 2 y alumno 1
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -246,7 +234,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let mensajeNota = document.getElementById("mensajeNota2");
     let notasInputs = document.querySelectorAll(".notas4");
 
-    //ASISTENCIA
+//ASISTENCIA
     function calcularPorcentajeAsistencia() {
         let checkboxesChecked = document.querySelectorAll(".checkboxMes2Alumno1:checked");
         let totalCheckbox = 5;
@@ -254,7 +242,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return porcentajeAsistencia;
     }
 
-    //PROMEDIO
+//PROMEDIO
     function calcularPromedioNotas() {
         let sumaNotas = 0;
         let cantidadNotas = 0;
@@ -267,12 +255,12 @@ document.addEventListener("DOMContentLoaded", function() {
         return promedio;
     }
 
-    //ESTADO PROMEDIO
+//ESTADO PROMEDIO
     function calcularEstado(promedio) {
         return promedio >= 7 ? "Aprobado" : "Desaprobado";
     }
 
-    //ACTUALIZAR DATOS
+//ACTUALIZAR DATOS
     function actualizarDatos(nombreAlumno) {
         let porcentajeAsistencia = calcularPorcentajeAsistencia();
         let promedioNotas = calcularPromedioNotas();
@@ -283,7 +271,7 @@ document.addEventListener("DOMContentLoaded", function() {
         mensajeNota.innerText = `${nombreAlumno} tiene un promedio de notas de ${promedioNotas}. Estado: ${estado}`;
     }
 
-    //ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
+//ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
     selectAlumno.addEventListener("change", function() {
         let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
         if (selectAlumno.value === "Maria-Gomez") {
@@ -294,7 +282,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // ESCUCHAR ASISTENCIAS 
+// ESCUCHAR ASISTENCIAS 
     document.querySelectorAll(".checkboxMes2Alumno1").forEach(function(checkbox) {
         checkbox.addEventListener("change", function() {
             let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
@@ -304,7 +292,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // ESCUCHAR NOTAS
+// ESCUCHAR NOTAS
     notasInputs.forEach(function(input) {
         input.addEventListener('input', function() {
             let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
@@ -315,7 +303,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-
 ////////// ASISTENCIAS y NOTAS con Mes 3 y alumno 1
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -324,7 +311,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let mensajeNota = document.getElementById("mensajeNota3");
     let notasInputs = document.querySelectorAll(".notas7");
 
-    //ASISTENCIA
+//ASISTENCIA
     function calcularPorcentajeAsistencia() {
         let checkboxesChecked = document.querySelectorAll(".checkboxMes3Alumno1:checked");
         let totalCheckbox = 5;
@@ -332,7 +319,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return porcentajeAsistencia;
     }
 
-    //PROMEDIO
+//PROMEDIO
     function calcularPromedioNotas() {
         let sumaNotas = 0;
         let cantidadNotas = 0;
@@ -345,12 +332,12 @@ document.addEventListener("DOMContentLoaded", function() {
         return promedio;
     }
 
-    //ESTADO PROMEDIO
+//ESTADO PROMEDIO
     function calcularEstado(promedio) {
         return promedio >= 7 ? "Aprobado" : "Desaprobado";
     }
 
-    //ACTUALIZAR DATOS
+//ACTUALIZAR DATOS
     function actualizarDatos(nombreAlumno) {
         let porcentajeAsistencia = calcularPorcentajeAsistencia();
         let promedioNotas = calcularPromedioNotas();
@@ -361,7 +348,7 @@ document.addEventListener("DOMContentLoaded", function() {
         mensajeNota.innerText = `${nombreAlumno} tiene un promedio de notas de ${promedioNotas}. Estado: ${estado}`;
     }
 
-    //ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
+//ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
     selectAlumno.addEventListener("change", function() {
         let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
         if (selectAlumno.value === "Maria-Gomez") {
@@ -372,7 +359,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // ESCUCHAR ASISTENCIAS 
+// ESCUCHAR ASISTENCIAS 
     document.querySelectorAll(".checkboxMes3Alumno1").forEach(function(checkbox) {
         checkbox.addEventListener("change", function() {
             let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
@@ -382,7 +369,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // ESCUCHAR NOTAS
+// ESCUCHAR NOTAS
     notasInputs.forEach(function(input) {
         input.addEventListener('input', function() {
             let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
@@ -392,7 +379,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
-
 
 ////////////////////////// INFORME FINAL ALUMNO 1
 
@@ -474,7 +460,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let mensajeNota = document.getElementById("mensajeNota");
     let notasInputs = document.querySelectorAll(".notas2");
 
-    //ASISTENCIA
+//ASISTENCIA
     function calcularPorcentajeAsistencia() {
         let checkboxesChecked = document.querySelectorAll(".checkboxMes1Alumno2:checked");
         let totalCheckbox = 5;
@@ -482,7 +468,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return porcentajeAsistencia;
     }
 
-    //PROMEDIO
+//PROMEDIO
     function calcularPromedioNotas() {
         let sumaNotas = 0;
         let cantidadNotas = 0;
@@ -495,12 +481,12 @@ document.addEventListener("DOMContentLoaded", function() {
         return promedio;
     }
 
-    //ESTADO PROMEDIO
+//ESTADO PROMEDIO
     function calcularEstado(promedio) {
         return promedio >= 7 ? "Aprobado" : "Desaprobado";
     }
 
-    //ACTUALIZAR DATOS
+//ACTUALIZAR DATOS
     function actualizarDatos(nombreAlumno) {
         let porcentajeAsistencia = calcularPorcentajeAsistencia();
         let promedioNotas = calcularPromedioNotas();
@@ -511,7 +497,7 @@ document.addEventListener("DOMContentLoaded", function() {
         mensajeNota.innerText = `${nombreAlumno} tiene un promedio de notas de ${promedioNotas}. Estado: ${estado}`;
     }
 
-    //ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
+//ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
     selectAlumno.addEventListener("change", function() {
         let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
         if (selectAlumno.value === "Juan-Perez") {
@@ -522,7 +508,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // ESCUCHAR ASISTENCIAS 
+// ESCUCHAR ASISTENCIAS 
     document.querySelectorAll(".checkboxMes1Alumno2").forEach(function(checkbox) {
         checkbox.addEventListener("change", function() {
             let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
@@ -532,7 +518,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // ESCUCHAR NOTAS
+// ESCUCHAR NOTAS
     notasInputs.forEach(function(input) {
         input.addEventListener('input', function() {
             let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
@@ -543,7 +529,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-
 ////////// ASISTENCIAS y NOTAS con Mes 2 y alumno 2
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -552,7 +537,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let mensajeNota = document.getElementById("mensajeNota2");
     let notasInputs = document.querySelectorAll(".notas5");
 
-    //ASISTENCIA
+//ASISTENCIA
     function calcularPorcentajeAsistencia() {
         let checkboxesChecked = document.querySelectorAll(".checkboxMes2Alumno2:checked");
         let totalCheckbox = 5;
@@ -560,7 +545,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return porcentajeAsistencia;
     }
 
-    //PROMEDIO
+//PROMEDIO
     function calcularPromedioNotas() {
         let sumaNotas = 0;
         let cantidadNotas = 0;
@@ -573,12 +558,12 @@ document.addEventListener("DOMContentLoaded", function() {
         return promedio;
     }
 
-    //ESTADO PROMEDIO
+//ESTADO PROMEDIO
     function calcularEstado(promedio) {
         return promedio >= 7 ? "Aprobado" : "Desaprobado";
     }
 
-    //ACTUALIZAR DATOS
+//ACTUALIZAR DATOS
     function actualizarDatos(nombreAlumno) {
         let porcentajeAsistencia = calcularPorcentajeAsistencia();
         let promedioNotas = calcularPromedioNotas();
@@ -589,7 +574,7 @@ document.addEventListener("DOMContentLoaded", function() {
         mensajeNota.innerText = `${nombreAlumno} tiene un promedio de notas de ${promedioNotas}. Estado: ${estado}`;
     }
 
-    //ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
+//ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
     selectAlumno.addEventListener("change", function() {
         let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
         if (selectAlumno.value === "Juan-Perez") {
@@ -600,7 +585,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // ESCUCHAR ASISTENCIAS 
+// ESCUCHAR ASISTENCIAS 
     document.querySelectorAll(".checkboxMes2Alumno2").forEach(function(checkbox) {
         checkbox.addEventListener("change", function() {
             let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
@@ -610,7 +595,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // ESCUCHAR NOTAS
+// ESCUCHAR NOTAS
     notasInputs.forEach(function(input) {
         input.addEventListener('input', function() {
             let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
@@ -621,7 +606,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-
 ////////// ASISTENCIAS y NOTAS con Mes 3 y alumno 2
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -630,7 +614,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let mensajeNota = document.getElementById("mensajeNota3");
     let notasInputs = document.querySelectorAll(".notas8");
 
-    //ASISTENCIA
+//ASISTENCIA
     function calcularPorcentajeAsistencia() {
         let checkboxesChecked = document.querySelectorAll(".checkboxMes3Alumno2:checked");
         let totalCheckbox = 5;
@@ -638,7 +622,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return porcentajeAsistencia;
     }
 
-    //PROMEDIO
+//PROMEDIO
     function calcularPromedioNotas() {
         let sumaNotas = 0;
         let cantidadNotas = 0;
@@ -651,12 +635,12 @@ document.addEventListener("DOMContentLoaded", function() {
         return promedio;
     }
 
-    //ESTADO PROMEDIO
+//ESTADO PROMEDIO
     function calcularEstado(promedio) {
         return promedio >= 7 ? "Aprobado" : "Desaprobado";
     }
 
-    //ACTUALIZAR DATOS
+//ACTUALIZAR DATOS
     function actualizarDatos(nombreAlumno) {
         let porcentajeAsistencia = calcularPorcentajeAsistencia();
         let promedioNotas = calcularPromedioNotas();
@@ -667,7 +651,7 @@ document.addEventListener("DOMContentLoaded", function() {
         mensajeNota.innerText = `${nombreAlumno} tiene un promedio de notas de ${promedioNotas}. Estado: ${estado}`;
     }
 
-    //ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
+//ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
     selectAlumno.addEventListener("change", function() {
         let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
         if (selectAlumno.value === "Juan-Perez") {
@@ -678,7 +662,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // ESCUCHAR ASISTENCIAS 
+// ESCUCHAR ASISTENCIAS 
     document.querySelectorAll(".checkboxMes3Alumno2").forEach(function(checkbox) {
         checkbox.addEventListener("change", function() {
             let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
@@ -688,7 +672,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // ESCUCHAR NOTAS
+// ESCUCHAR NOTAS
     notasInputs.forEach(function(input) {
         input.addEventListener('input', function() {
             let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
@@ -699,9 +683,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-
 ////////////////////////// INFORME FINAL ALUMNO 2
-
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -774,9 +756,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-
 //////////////////////////////////////////////////////// ASISTENCIAS y NOTAS con Mes 1 y alumno 3
-
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -785,7 +765,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let mensajeNota = document.getElementById("mensajeNota");
     let notasInputs = document.querySelectorAll(".notas3");
 
-    //ASISTENCIA
+//ASISTENCIA
     function calcularPorcentajeAsistencia() {
         let checkboxesChecked = document.querySelectorAll(".checkboxMes1Alumno3:checked");
         let totalCheckbox = 5;
@@ -793,7 +773,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return porcentajeAsistencia;
     }
 
-    //PROMEDIO
+//PROMEDIO
     function calcularPromedioNotas() {
         let sumaNotas = 0;
         let cantidadNotas = 0;
@@ -806,12 +786,12 @@ document.addEventListener("DOMContentLoaded", function() {
         return promedio;
     }
 
-    //ESTADO PROMEDIO
+//ESTADO PROMEDIO
     function calcularEstado(promedio) {
         return promedio >= 7 ? "Aprobado" : "Desaprobado";
     }
 
-    //ACTUALIZAR DATOS
+//ACTUALIZAR DATOS
     function actualizarDatos(nombreAlumno) {
         let porcentajeAsistencia = calcularPorcentajeAsistencia();
         let promedioNotas = calcularPromedioNotas();
@@ -822,7 +802,7 @@ document.addEventListener("DOMContentLoaded", function() {
         mensajeNota.innerText = `${nombreAlumno} tiene un promedio de notas de ${promedioNotas}. Estado: ${estado}`;
     }
 
-    //ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
+//ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
     selectAlumno.addEventListener("change", function() {
         let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
         if (selectAlumno.value === "Pablo-Lopez") {
@@ -833,7 +813,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // ESCUCHAR ASISTENCIAS 
+// ESCUCHAR ASISTENCIAS 
     document.querySelectorAll(".checkboxMes1Alumno3").forEach(function(checkbox) {
         checkbox.addEventListener("change", function() {
             let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
@@ -843,7 +823,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // ESCUCHAR NOTAS
+// ESCUCHAR NOTAS
     notasInputs.forEach(function(input) {
         input.addEventListener('input', function() {
             let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
@@ -854,7 +834,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-
 ////////// ASISTENCIAS y NOTAS con Mes 2 y alumno 2
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -863,7 +842,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let mensajeNota = document.getElementById("mensajeNota2");
     let notasInputs = document.querySelectorAll(".notas6");
 
-    //ASISTENCIA
+//ASISTENCIA
     function calcularPorcentajeAsistencia() {
         let checkboxesChecked = document.querySelectorAll(".checkboxMes2Alumno3:checked");
         let totalCheckbox = 5;
@@ -871,7 +850,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return porcentajeAsistencia;
     }
 
-    //PROMEDIO
+//PROMEDIO
     function calcularPromedioNotas() {
         let sumaNotas = 0;
         let cantidadNotas = 0;
@@ -884,12 +863,12 @@ document.addEventListener("DOMContentLoaded", function() {
         return promedio;
     }
 
-    //ESTADO PROMEDIO
+//ESTADO PROMEDIO
     function calcularEstado(promedio) {
         return promedio >= 7 ? "Aprobado" : "Desaprobado";
     }
 
-    //ACTUALIZAR DATOS
+//ACTUALIZAR DATOS
     function actualizarDatos(nombreAlumno) {
         let porcentajeAsistencia = calcularPorcentajeAsistencia();
         let promedioNotas = calcularPromedioNotas();
@@ -900,7 +879,7 @@ document.addEventListener("DOMContentLoaded", function() {
         mensajeNota.innerText = `${nombreAlumno} tiene un promedio de notas de ${promedioNotas}. Estado: ${estado}`;
     }
 
-    //ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
+//ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
     selectAlumno.addEventListener("change", function() {
         let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
         if (selectAlumno.value === "Pablo-Lopez") {
@@ -911,7 +890,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // ESCUCHAR ASISTENCIAS 
+//ESCUCHAR ASISTENCIAS 
     document.querySelectorAll(".checkboxMes2Alumno3").forEach(function(checkbox) {
         checkbox.addEventListener("change", function() {
             let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
@@ -921,7 +900,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // ESCUCHAR NOTAS
+// ESCUCHAR NOTAS
     notasInputs.forEach(function(input) {
         input.addEventListener('input', function() {
             let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
@@ -932,7 +911,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-
 ////////// ASISTENCIAS y NOTAS con Mes 3 y alumno 3
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -941,7 +919,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let mensajeNota = document.getElementById("mensajeNota3");
     let notasInputs = document.querySelectorAll(".notas9");
 
-    //ASISTENCIA
+//ASISTENCIA
     function calcularPorcentajeAsistencia() {
         let checkboxesChecked = document.querySelectorAll(".checkboxMes3Alumno3:checked");
         let totalCheckbox = 5;
@@ -949,7 +927,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return porcentajeAsistencia;
     }
 
-    //PROMEDIO
+//PROMEDIO
     function calcularPromedioNotas() {
         let sumaNotas = 0;
         let cantidadNotas = 0;
@@ -962,12 +940,12 @@ document.addEventListener("DOMContentLoaded", function() {
         return promedio;
     }
 
-    //ESTADO PROMEDIO
+//ESTADO PROMEDIO
     function calcularEstado(promedio) {
         return promedio >= 7 ? "Aprobado" : "Desaprobado";
     }
 
-    //ACTUALIZAR DATOS
+//ACTUALIZAR DATOS
     function actualizarDatos(nombreAlumno) {
         let porcentajeAsistencia = calcularPorcentajeAsistencia();
         let promedioNotas = calcularPromedioNotas();
@@ -978,7 +956,7 @@ document.addEventListener("DOMContentLoaded", function() {
         mensajeNota.innerText = `${nombreAlumno} tiene un promedio de notas de ${promedioNotas}. Estado: ${estado}`;
     }
 
-    //ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
+//ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
     selectAlumno.addEventListener("change", function() {
         let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
         if (selectAlumno.value === "Pablo-Lopez") {
@@ -989,7 +967,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // ESCUCHAR ASISTENCIAS 
+// ESCUCHAR ASISTENCIAS 
     document.querySelectorAll(".checkboxMes3Alumno3").forEach(function(checkbox) {
         checkbox.addEventListener("change", function() {
             let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
@@ -999,7 +977,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // ESCUCHAR NOTAS
+// ESCUCHAR NOTAS
     notasInputs.forEach(function(input) {
         input.addEventListener('input', function() {
             let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
@@ -1009,7 +987,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
-
 
 ////////////////////////// INFORME FINAL ALUMNO 3
 
