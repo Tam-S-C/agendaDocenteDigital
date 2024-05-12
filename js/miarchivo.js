@@ -4,7 +4,7 @@
 // Sumar storage y evento al inicio de sesión + devolver nombre en el bienvenido del aside
 // Listado de tareas pendientes (onclick, crear elementos y remove) + LOCALSTORAGE Y JSON
 // Planilla con checks para asistencias + notas con innerText con regularidad y promedio
-// SUGAR SYNTAX en linea 29 y 142
+// SUGAR SYNTAX en lineas: 27, 155 y 163
 
 
 /* Para la entrega final, lo ideal sería sumar que también se guarde 
@@ -152,11 +152,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
 //ESTADO PROMEDIO
     function calcularEstado(promedio) {
-        if (promedio >= 7) {
-            return "Aprobado";
-        } else {
-            return "Desaprobado";
-        }
+        return promedio >= 7 ? "Aprobado" : "Desaprobado"; // uso de sugar sintax
     }
 
 //ACTUALIZAR DATOS
@@ -164,13 +160,13 @@ document.addEventListener("DOMContentLoaded", function() {
         let porcentajeAsistencia = calcularPorcentajeAsistencia();
         let promedioNotas = calcularPromedioNotas();
         let estado = calcularEstado(promedioNotas);
-        let regularidad = porcentajeAsistencia >= 50 ? "regular" : "irregular";
+        let regularidad = porcentajeAsistencia >= 50 ? "regular" : "irregular"; // uso de sugar sintax
 
         mensajeAsistencia.innerText = `${nombreAlumno} tiene un ${porcentajeAsistencia}% de asistencia el primer mes. Su estado es ${regularidad}.`;
         mensajeNota.innerText = `${nombreAlumno} tiene un promedio de notas de ${promedioNotas}. Estado: ${estado}`;
     }
 
-//ACTUALIZAR DATOS A TIEMPO "REAL"
+//ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
     selectAlumno.addEventListener("change", function() {
         let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
         if (selectAlumno.value === "Maria-Gomez") {
@@ -181,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-// ESCUCHAR ASISTENCIAS
+// ESCUCHAR ASISTENCIAS 
     document.querySelectorAll(".checkboxMes1Alumno1").forEach(function(checkbox) {
         checkbox.addEventListener("change", function() {
             let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
@@ -232,5 +228,4 @@ function enviarFormulario(event) {
 
     // Cerrar popup después de 4 seg.
     setTimeout(() => { popup.close(); }, 4000); 
-
 }
