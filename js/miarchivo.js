@@ -6,7 +6,7 @@
 // Planilla con checks para asistencias
 // Planilla con inputs para notas
 // innerText para info de Promedio y estado
-// SUGAR SYNTAX en linea 26
+// SUGAR SYNTAX en linea 29 y 142
 
 
 /* Para la entrega final, lo ideal sería sumar que también se guarde 
@@ -76,11 +76,7 @@ funcionFecha.innerText = mensaje;
 ////////// TAREAS PENDIENTES (ASIDE)
 
 function sumarTarea() {
-    let sumarTareaInput = document.getElementById("tareasPendientes").value.trim(); // Obtener el valor del input y quitar espacios en blanco
-
-    if (sumarTareaInput === "") {
-        return; // Si el input está vacío, salir de la función sin hacer nada
-    }
+    let sumarTareaInput = document.getElementById("tareasPendientes").value; // Obtener el valor del input
 
     let tarea = {
         nombre: sumarTareaInput,
@@ -124,35 +120,61 @@ function mostrarTareas() {
 document.addEventListener("DOMContentLoaded", mostrarTareas);
 
 
+
 //////////////////////////////////////// MAIN
 
-////////// ASISTENCIAS
 
-// PORCENTAJE
-function calcularPorcentajeAsistencia() {
-    let checkboxesChecked = document.querySelectorAll(".checkboxMes1Alumno1:checked");
-    let totalCheckbox = 5;
-    let porcentajeAsistencia = Math.round((checkboxesChecked.length / totalCheckbox) * 100);
-    return porcentajeAsistencia;
-}
+////////// ASISTENCIAS con Mes 1 y alumno 1
 
-// Función para actualizar el mensaje de asistencia
-function actualizarMensajeAsistencia() {
-    let porcentajeAsistencia = calcularPorcentajeAsistencia();
+document.addEventListener("DOMContentLoaded", function() {
+
+    let seleccionarAlumno = document.getElementById("selector-alumno");
     let mensajeAsistencia = document.getElementById("mensajeAsistencia");
-    mensajeAsistencia.innerText = "El alumno tiene un " + porcentajeAsistencia + "% de asistencia el primer mes.";
-}
 
-// Obtener todos los checkboxes y agregar un listener de eventos a cada uno
-let checkboxes = document.querySelectorAll(".checkboxMes1Alumno1");
-checkboxes.forEach(function(checkbox) {
-    checkbox.addEventListener('change', function() {
-        actualizarMensajeAsistencia();
+//PORCENTAJE
+    function calcularPorcentajeAsistencia() {
+        let checkboxesChecked = document.querySelectorAll(".checkboxMes1Alumno1:checked");
+        let totalCheckbox = 5;
+        let porcentajeAsistencia = Math.round((checkboxesChecked.length / totalCheckbox) * 100);
+        return porcentajeAsistencia;
+    }
+
+//REGULARIDAD
+    function calcularRegularidad(porcentajeAsistencia) {
+        return porcentajeAsistencia >= 50 ? "regular" : "debe rever su regularidad";
+    }
+
+// Actualizar el mensaje de asistencias
+    function actualizarMensajeAsistencia(nombreAlumno) {
+        let porcentajeAsistencia = calcularPorcentajeAsistencia();
+        let regularidad = calcularRegularidad(porcentajeAsistencia); // Recalcular la regularidad
+        mensajeAsistencia.innerText = nombreAlumno + " tiene un " + porcentajeAsistencia + "% de asistencia el primer mes. Su estado es: " + regularidad;
+    }
+
+// Listener de eventos/change al menu alumnos
+    seleccionarAlumno.addEventListener("change", function() {
+        let nombreAlumno = seleccionarAlumno.options[seleccionarAlumno.selectedIndex].text;
+
+// Si se selecciona "María Gómez", mostrar el mensaje de asistencias
+        if (seleccionarAlumno.value === "Maria-Gomez") {
+            actualizarMensajeAsistencia(nombreAlumno);
+        } else {
+            mensajeAsistencia.innerText = ""; // Borrar el mensaje si se selecciona otro alumno
+        }
+    });
+    
+// Listener de eventos a cada CHECKBOX para actualizar el mensaje de asistencias al cambiar
+    let checkboxes = document.querySelectorAll(".checkboxMes1Alumno1");
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            let nombreAlumno = seleccionarAlumno.options[seleccionarAlumno.selectedIndex].text;
+            if (seleccionarAlumno.value === "Maria-Gomez") {
+                actualizarMensajeAsistencia(nombreAlumno);
+            }
+        });
     });
 });
 
-// Llamar a la función para actualizar el mensaje de asistencia cuando se cargue la página
-actualizarMensajeAsistencia();
 
 /*
 ////////////////////// CALIFICACIONES
@@ -201,93 +223,8 @@ actualizarMensajeAsistencia();
 // RESULTADO
     alert(`El promedio del alumno es: ${promedio}. El alumno está: ${estado}. \n\nPresiona enter o acepta/ok para volver al menú principal.`);
 }
-
-///////////////////////  ASISTENCIA usando CICLO WHILE y do while mejorado con totalClases escalable
-
-else if (opcion === "2") {
-    let alumnoElegido = "";
-    let asistencias = 0;
-
-    while (alumnoElegido !== "1" && alumnoElegido !== "2" && alumnoElegido !== "3") {
-        alumnoElegido = prompt("Elige un alumno para saber su regularidad: \n 1: María Rodriguez  \n 2: Juan Perez \n 3: Pablo Lopez");
-        if (alumnoElegido !== "1" && alumnoElegido !== "2" && alumnoElegido !== "3") {
-            alert("Opción no válida. Por favor, elige un alumno válido.");
-        }
-    }
-
-    let totalClases = parseInt(prompt(`Ingresa el número de cantidad de clases anuales:`));
-    let asistenciasIngresadas;
-
-    do {
-        asistenciasIngresadas = parseInt(prompt(`Ingresa el número de asistencias para el alumno seleccionado (${alumnoElegido}):`));
-        if (asistenciasIngresadas >= 0 && asistenciasIngresadas <= totalClases) {
-            asistencias = asistenciasIngresadas;
-
-            function cuentaPorcentajeAsistencia(asistencias, totalClases) {
-                return Math.round((asistencias / totalClases) * 100);
-            }
-
-            let porcentajeAsistencia = cuentaPorcentajeAsistencia(asistencias, totalClases);
-
-            if (porcentajeAsistencia >= 70) {
-                alert(`El alumno tiene un ${porcentajeAsistencia}% de asistencia y sigue regular. \n\nTeclea enter o aceptar/ok para volver al menú principal.`);
-            } else {
-                alert(`El alumno tiene un ${porcentajeAsistencia}% de asistencia, debe ser verificada su regularidad. \n\nTeclea enter o aceptar/ok para volver al menú principal.`);
-            }
-        } else {
-        alert(`El número de asistencias ingresado no es válido. Por favor, ingresa un valor entre 0 y ${totalClases}`);
-        }
-    } while (asistenciasIngresadas < 0 || asistenciasIngresadas > totalClases);
-    // Repite así el bucle mientras el valor ingresado no sea válido.
-
-
-//////////////////////  CLASS MATERIAS, (alert simple de pedido de datos)
-
-} else if ( opcion === "3"){
-
-class Materias {
-    constructor (materiaAlumno, nombreAlumno, promedioAlumno, estadoNotas, estadoAsistencias) {
-        this.materiaAlumno = materiaAlumno
-        this.nombreAlumno = nombreAlumno;
-        this.promedioAlumno  = promedioAlumno;
-        this.estadoNotas  = estadoNotas;
-        this.estadoAsistencias =estadoAsistencias
-    }
-}
-
-const alumno1 = new Materias("Aritmética", "María Rodriguez", 10, "Aprobada", "Regularizada");
-const alumno2 = new Materias("Aritmética", "Juan Perez", 5, "Desaprobado", "Regularizada");
-const alumno3 = new Materias("Aritmética", "Pablo Lopez", 8, "Aprobado", "Ver Regularidad");
-
-
-let alumnoClass;
-while (alumnoClass !== 1 && alumnoClass !== 2 && alumnoClass !== 3) {
-    alumnoClass = parseInt(prompt(`Elige un alumno: \n 1: María Rodriguez  \n 2: Juan Perez \n 3: Pablo Lopez`));
-    if (alumnoClass !== 1 && alumnoClass !== 2 && alumnoClass !== 3) {
-        alert(`El número ingresado no es válido. Por favor, ingresa un valor válido.`);
-    }
-}
-
-// Visualización del estado del alumno seleccionado
-if (alumnoClass === 1) {
-    alert(`Estado del alumno: \n Materia: ${alumno1.materiaAlumno} \n Nombre: ${alumno1.nombreAlumno} \n Promedio: ${alumno1.promedioAlumno} \n Estado de Notas: ${alumno1.estadoNotas} \n Estado de Asistencias: ${alumno1.estadoAsistencias} \n\nTeclea enter o aceptar/ok para volver al menú principal.`);
-} else if (alumnoClass === 2) {
-    alert(`Estado del alumno: \n Materia: ${alumno2.materiaAlumno} \n Nombre: ${alumno2.nombreAlumno} \n Promedio: ${alumno2.promedioAlumno} \n Estado de Notas: ${alumno2.estadoNotas} \n Estado de Asistencias: ${alumno2.estadoAsistencias} \n\nTeclea enter o aceptar/ok para volver al menú principal.`);
-} else if (alumnoClass === 3) {
-    alert(`Estado del alumno: \n Materia: ${alumno3.materiaAlumno} \n Nombre: ${alumno3.nombreAlumno} \n Promedio: ${alumno3.promedioAlumno} \n Estado de Notas: ${alumno3.estadoNotas} \n Estado de Asistencias: ${alumno3.estadoAsistencias} \n\nTeclea enter o aceptar/ok para volver al menú principal.`);
-}
-}
-
-////////////////////// PARA SALIR DEL MENÚ
-
-else if( opcion === "4"){
-    alert ("Gracias por utilizar nuestra web. \n\nQue tenga un buen día! =D")
-
-} else {
-    alert("Opción no disponible. Por favor elige una opción válida.");
-}
-}
 */
+
 
 //////////////////////////////////////// FORMULARIO DE CONTACTO
 
