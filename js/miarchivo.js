@@ -119,7 +119,42 @@ document.addEventListener("DOMContentLoaded", mostrarTareas);
 
 
 
+//////////////////////////////////////// FORMULARIO DE CONTACTO
+
+function enviarFormulario(event) {
+    event.preventDefault(); //prevencion por defecto + en html estan los valores "requerido en cada campo"
+
+    // Obtener las dimensiones de la ventana principal
+    let ventanaPrincipalAncho = window.innerWidth;
+    let ventanaPrincipalAlto = window.innerHeight;
+
+    // Calcular la posición de la ventana emergente para que esté centrada
+    let popupAncho = 350; // Ancho de la ventana emergente
+    let popupAlto = 120;   // Alto de la ventana emergente
+    let left = (ventanaPrincipalAncho - popupAncho) / 2;  // div 2 la medida para que quede centrada
+    let top = (ventanaPrincipalAlto - popupAlto) / 2; // div 2 la medida para que quede centrada
+
+    // Para crear la ventana emergente + medidas y ubicación 
+    let popup = window.open("", "Popup", "width=" + popupAncho + ", height=" + popupAlto + ", top=" + top + ", left=" + left );
+
+    // Estilos CSS dentro de JS
+    popup.document.write("<style>body { background-color: #D7D7ED; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; }</style>");
+    popup.document.write("<p style='font-weight: bold; color: #978FC5; font-size: 20px;'>Mensaje enviado! =) Gracias!</p>");
+    popup.document.write('<html><head><title>Agenda Docente Digital</title></head><body>');
+    popup.document.write('</body></html>');
+
+    // Restablecer el formulario luego de enviarlo
+    document.getElementById("formulario").reset();
+
+    // Cerrar popup después de 4 seg.
+    setTimeout(() => { popup.close(); }, 4000); 
+}
+
+
+
 //////////////////////////////////////// MAIN
+
+
 
 ////////// ASISTENCIAS y NOTAS con Mes 1 y alumno 1
 
@@ -199,33 +234,160 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-//////////////////////////////////////// FORMULARIO DE CONTACTO
 
-function enviarFormulario(event) {
-    event.preventDefault(); //prevencion por defecto + en html estan los valores "requerido en cada campo"
+////////// ASISTENCIAS y NOTAS con Mes 2 y alumno 1
 
-    // Obtener las dimensiones de la ventana principal
-    let ventanaPrincipalAncho = window.innerWidth;
-    let ventanaPrincipalAlto = window.innerHeight;
+document.addEventListener("DOMContentLoaded", function() {
+    let selectAlumno = document.getElementById("selector-alumno2");
+    let mensajeAsistencia = document.getElementById("mensajeAsistencia2");
+    let mensajeNota = document.getElementById("mensajeNota2");
+    let notasInputs = document.querySelectorAll(".notas4");
 
-    // Calcular la posición de la ventana emergente para que esté centrada
-    let popupAncho = 350; // Ancho de la ventana emergente
-    let popupAlto = 120;   // Alto de la ventana emergente
-    let left = (ventanaPrincipalAncho - popupAncho) / 2;  // div 2 la medida para que quede centrada
-    let top = (ventanaPrincipalAlto - popupAlto) / 2; // div 2 la medida para que quede centrada
+//ASISTENCIA
+    function calcularPorcentajeAsistencia() {
+        let checkboxesChecked = document.querySelectorAll(".checkboxMes2Alumno1:checked");
+        let totalCheckbox = 5;
+        let porcentajeAsistencia = Math.round((checkboxesChecked.length / totalCheckbox) * 100);
+        return porcentajeAsistencia;
+    }
 
-    // Para crear la ventana emergente + medidas y ubicación 
-    let popup = window.open("", "Popup", "width=" + popupAncho + ", height=" + popupAlto + ", top=" + top + ", left=" + left );
+//PROMEDIO
+    function calcularPromedioNotas() {
+        let sumaNotas = 0;
+        let cantidadNotas = 0;
+        notasInputs.forEach(function(input) {
+            let nota = parseFloat(input.value) || 0;
+            sumaNotas += nota;
+            cantidadNotas++;
+        });
+        let promedio = Math.round(sumaNotas / cantidadNotas);
+        return promedio;
+    }
+    
+//ESTADO PROMEDIO
+    function calcularEstado(promedio) {
+        return promedio >= 7 ? "Aprobado" : "Desaprobado"; // uso de sugar sintax
+    }
 
-    // Estilos CSS dentro de JS
-    popup.document.write("<style>body { background-color: #D7D7ED; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; }</style>");
-    popup.document.write("<p style='font-weight: bold; color: #978FC5; font-size: 20px;'>Mensaje enviado! =) Gracias!</p>");
-    popup.document.write('<html><head><title>Agenda Docente Digital</title></head><body>');
-    popup.document.write('</body></html>');
+//ACTUALIZAR DATOS
+    function actualizarDatos(nombreAlumno) {
+        let porcentajeAsistencia = calcularPorcentajeAsistencia();
+        let promedioNotas = calcularPromedioNotas();
+        let estado = calcularEstado(promedioNotas);
+        let regularidad = porcentajeAsistencia >= 50 ? "regular" : "irregular"; // uso de sugar sintax
 
-    // Restablecer el formulario luego de enviarlo
-    document.getElementById("formulario").reset();
+        mensajeAsistencia.innerText = `${nombreAlumno} tiene un ${porcentajeAsistencia}% de asistencia el primer mes. Su estado es ${regularidad}.`;
+        mensajeNota.innerText = `${nombreAlumno} tiene un promedio de notas de ${promedioNotas}. Estado: ${estado}`;
+    }
 
-    // Cerrar popup después de 4 seg.
-    setTimeout(() => { popup.close(); }, 4000); 
-}
+//ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
+    selectAlumno.addEventListener("change", function() {
+        let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
+        if (selectAlumno.value === "Maria-Gomez") {
+            actualizarDatos(nombreAlumno);
+        } else {
+            mensajeAsistencia.innerText = "";
+            mensajeNota.innerText = "";
+        }
+    });
+
+// ESCUCHAR ASISTENCIAS 
+    document.querySelectorAll(".checkboxMes2Alumno1").forEach(function(checkbox) {
+        checkbox.addEventListener("change", function() {
+            let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
+            if (selectAlumno.value === "Maria-Gomez") {
+                actualizarDatos(nombreAlumno);
+            }
+        });
+    });
+
+// ESCUCHAR NOTAS
+    notasInputs.forEach(function(input) {
+        input.addEventListener('input', function() {
+            let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
+            if (selectAlumno.value === "Maria-Gomez") {
+                actualizarDatos(nombreAlumno);
+            }
+        });
+    });
+});
+
+
+
+////////// ASISTENCIAS y NOTAS con Mes 3 y alumno 1
+
+document.addEventListener("DOMContentLoaded", function() {
+    let selectAlumno = document.getElementById("selector-alumno3");
+    let mensajeAsistencia = document.getElementById("mensajeAsistencia3");
+    let mensajeNota = document.getElementById("mensajeNota3");
+    let notasInputs = document.querySelectorAll(".notas7");
+
+//ASISTENCIA
+    function calcularPorcentajeAsistencia() {
+        let checkboxesChecked = document.querySelectorAll(".checkboxMes3Alumno1:checked");
+        let totalCheckbox = 5;
+        let porcentajeAsistencia = Math.round((checkboxesChecked.length / totalCheckbox) * 100);
+        return porcentajeAsistencia;
+    }
+
+//PROMEDIO
+    function calcularPromedioNotas() {
+        let sumaNotas = 0;
+        let cantidadNotas = 0;
+        notasInputs.forEach(function(input) {
+            let nota = parseFloat(input.value) || 0;
+            sumaNotas += nota;
+            cantidadNotas++;
+        });
+        let promedio = Math.round(sumaNotas / cantidadNotas);
+        return promedio;
+    }
+    
+//ESTADO PROMEDIO
+    function calcularEstado(promedio) {
+        return promedio >= 7 ? "Aprobado" : "Desaprobado"; // uso de sugar sintax
+    }
+
+//ACTUALIZAR DATOS
+    function actualizarDatos(nombreAlumno) {
+        let porcentajeAsistencia = calcularPorcentajeAsistencia();
+        let promedioNotas = calcularPromedioNotas();
+        let estado = calcularEstado(promedioNotas);
+        let regularidad = porcentajeAsistencia >= 50 ? "regular" : "irregular"; // uso de sugar sintax
+
+        mensajeAsistencia.innerText = `${nombreAlumno} tiene un ${porcentajeAsistencia}% de asistencia el primer mes. Su estado es ${regularidad}.`;
+        mensajeNota.innerText = `${nombreAlumno} tiene un promedio de notas de ${promedioNotas}. Estado: ${estado}`;
+    }
+
+//ACTUALIZAR DATOS A TIEMPO "REAL" con evento Change
+    selectAlumno.addEventListener("change", function() {
+        let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
+        if (selectAlumno.value === "Maria-Gomez") {
+            actualizarDatos(nombreAlumno);
+        } else {
+            mensajeAsistencia.innerText = "";
+            mensajeNota.innerText = "";
+        }
+    });
+
+// ESCUCHAR ASISTENCIAS 
+    document.querySelectorAll(".checkboxMes3Alumno1").forEach(function(checkbox) {
+        checkbox.addEventListener("change", function() {
+            let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
+            if (selectAlumno.value === "Maria-Gomez") {
+                actualizarDatos(nombreAlumno);
+            }
+        });
+    });
+
+// ESCUCHAR NOTAS
+    notasInputs.forEach(function(input) {
+        input.addEventListener('input', function() {
+            let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
+            if (selectAlumno.value === "Maria-Gomez") {
+                actualizarDatos(nombreAlumno);
+            }
+        });
+    });
+});
+
