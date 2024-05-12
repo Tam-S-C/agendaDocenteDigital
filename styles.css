@@ -86,8 +86,8 @@ th, td {
     text-align: center;
 }
 
-.notas {
-    width: 30px;
+.notas, .notas1 {
+    width: 32px;
 }
 
 aside {

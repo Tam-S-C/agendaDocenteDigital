@@ -3,9 +3,7 @@
 // Info de materias con DATE en aside con innerText
 // Sumar storage y evento al inicio de sesión + devolver nombre en el bienvenido del aside
 // Listado de tareas pendientes (onclick, crear elementos y remove) + LOCALSTORAGE Y JSON
-// Planilla con checks para asistencias
-// Planilla con inputs para notas
-// innerText para info de Promedio y estado
+// Planilla con checks para asistencias + notas con innerText con regularidad y promedio
 // SUGAR SYNTAX en linea 29 y 142
 
 
@@ -123,15 +121,15 @@ document.addEventListener("DOMContentLoaded", mostrarTareas);
 
 //////////////////////////////////////// MAIN
 
-
-////////// ASISTENCIAS con Mes 1 y alumno 1
+////////// ASISTENCIAS y NOTAS con Mes 1 y alumno 1
 
 document.addEventListener("DOMContentLoaded", function() {
-
-    let seleccionarAlumno = document.getElementById("selector-alumno");
+    let selectAlumno = document.getElementById("selector-alumno");
     let mensajeAsistencia = document.getElementById("mensajeAsistencia");
+    let mensajeNota = document.getElementById("mensajeNota");
+    let notasInputs = document.querySelectorAll(".notas1");
 
-//PORCENTAJE
+//ASISTENCIA
     function calcularPorcentajeAsistencia() {
         let checkboxesChecked = document.querySelectorAll(".checkboxMes1Alumno1:checked");
         let totalCheckbox = 5;
@@ -139,91 +137,70 @@ document.addEventListener("DOMContentLoaded", function() {
         return porcentajeAsistencia;
     }
 
-//REGULARIDAD
-    function calcularRegularidad(porcentajeAsistencia) {
-        return porcentajeAsistencia >= 50 ? "regular" : "debe rever su regularidad";
+//PROMEDIO
+    function calcularPromedioNotas() {
+        let sumaNotas = 0;
+        let cantidadNotas = 0;
+        notasInputs.forEach(function(input) {
+            let nota = parseFloat(input.value) || 0;
+            sumaNotas += nota;
+            cantidadNotas++;
+        });
+        let promedio = Math.round(sumaNotas / cantidadNotas);
+        return promedio;
     }
-
-// Actualizar el mensaje de asistencias
-    function actualizarMensajeAsistencia(nombreAlumno) {
-        let porcentajeAsistencia = calcularPorcentajeAsistencia();
-        let regularidad = calcularRegularidad(porcentajeAsistencia); // Recalcular la regularidad
-        mensajeAsistencia.innerText = nombreAlumno + " tiene un " + porcentajeAsistencia + "% de asistencia el primer mes. Su estado es: " + regularidad;
-    }
-
-// Listener de eventos/change al menu alumnos
-    seleccionarAlumno.addEventListener("change", function() {
-        let nombreAlumno = seleccionarAlumno.options[seleccionarAlumno.selectedIndex].text;
-
-// Si se selecciona "María Gómez", mostrar el mensaje de asistencias
-        if (seleccionarAlumno.value === "Maria-Gomez") {
-            actualizarMensajeAsistencia(nombreAlumno);
+    
+//ESTADO PROMEDIO
+    function calcularEstado(promedio) {
+        if (promedio >= 7) {
+            return "Aprobado";
         } else {
-            mensajeAsistencia.innerText = ""; // Borrar el mensaje si se selecciona otro alumno
+            return "Desaprobado";
+        }
+    }
+
+//ACTUALIZAR DATOS
+    function actualizarDatos(nombreAlumno) {
+        let porcentajeAsistencia = calcularPorcentajeAsistencia();
+        let promedioNotas = calcularPromedioNotas();
+        let estado = calcularEstado(promedioNotas);
+        let regularidad = porcentajeAsistencia >= 50 ? "regular" : "irregular";
+
+        mensajeAsistencia.innerText = `${nombreAlumno} tiene un ${porcentajeAsistencia}% de asistencia el primer mes. Su estado es ${regularidad}.`;
+        mensajeNota.innerText = `${nombreAlumno} tiene un promedio de notas de ${promedioNotas}. Estado: ${estado}`;
+    }
+
+//ACTUALIZAR DATOS A TIEMPO "REAL"
+    selectAlumno.addEventListener("change", function() {
+        let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
+        if (selectAlumno.value === "Maria-Gomez") {
+            actualizarDatos(nombreAlumno);
+        } else {
+            mensajeAsistencia.innerText = "";
+            mensajeNota.innerText = "";
         }
     });
-    
-// Listener de eventos a cada CHECKBOX para actualizar el mensaje de asistencias al cambiar
-    let checkboxes = document.querySelectorAll(".checkboxMes1Alumno1");
-    checkboxes.forEach(function(checkbox) {
-        checkbox.addEventListener('change', function() {
-            let nombreAlumno = seleccionarAlumno.options[seleccionarAlumno.selectedIndex].text;
-            if (seleccionarAlumno.value === "Maria-Gomez") {
-                actualizarMensajeAsistencia(nombreAlumno);
+
+// ESCUCHAR ASISTENCIAS
+    document.querySelectorAll(".checkboxMes1Alumno1").forEach(function(checkbox) {
+        checkbox.addEventListener("change", function() {
+            let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
+            if (selectAlumno.value === "Maria-Gomez") {
+                actualizarDatos(nombreAlumno);
+            }
+        });
+    });
+
+// ESCUCHAR NOTAS
+    notasInputs.forEach(function(input) {
+        input.addEventListener('input', function() {
+            let nombreAlumno = selectAlumno.options[selectAlumno.selectedIndex].text;
+            if (selectAlumno.value === "Maria-Gomez") {
+                actualizarDatos(nombreAlumno);
             }
         });
     });
 });
-
-
-/*
-////////////////////// CALIFICACIONES
-
-// ARRAY notas para hacerlo escalable y que se puedan ingresar la cantidad de notas que quiera el docente.
-    let notas = [];
-
-// Solicitar al usuario que ingrese las notas
-
-    let continuarIngresando = true; // bandera para cortar el ingreso!!
-
-    while (continuarIngresando) {
-        let notaNueva = prompt("Inserta cada nota seguida por enter o aceptar (entre 0 y 10). Tecla la letra 'x' cuando termines de cargar las notas.");
-
-        if (notaNueva.toLowerCase() === 'x') { //para asegurar la minuscula
-            continuarIngresando = false;
-        } else {
-            let nota = parseInt(notaNueva);
-
-            // Verificar si la nota es válida
-            if (!isNaN(nota) && nota >= 0 && nota <= 10) { //isNaN por si ingresa un caracter que no es un número
-
-                notas.push(nota); // sumo la nota al array notas! :)
-            } else {
-                alert("La nota ingresada no es válida. Por favor, ingresa un valor numérico entre 0 y 10 o 'x' para salir.");
-            }
-        }
-    }
-
-// PROMEDIO
-    let sumaNotas = 0; //contador
-
-    for (let i = 0; i < notas.length; i++) { // uso de lenght para cortar la suma y para la división en el porcentaje.
-        sumaNotas += notas[i];
-    }
-    let promedio = Math.round(sumaNotas / notas.length);
-
-// ESTADO
-    let estado;
-    if (promedio >= 7) {
-        estado = "Aprobado";
-    } else {
-        estado = "Desaprobado";
-    }
-
-// RESULTADO
-    alert(`El promedio del alumno es: ${promedio}. El alumno está: ${estado}. \n\nPresiona enter o acepta/ok para volver al menú principal.`);
-}
-*/
 
 
 //////////////////////////////////////// FORMULARIO DE CONTACTO
