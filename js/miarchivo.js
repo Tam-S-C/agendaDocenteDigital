@@ -1,13 +1,14 @@
 /* CAMBIOS REALIZADOS: ENTREGA FINAL */
 
 // Evitar que se sumen tareas vacías + cartel con innerText de aviso. (CHECK)
+// Librería SweetAlert2 para el aviso de mensaje de contacto enviado (CHECK)
+// Hacer "mensajes" arrays en vez de objeto (CHECK)
+// Sumar API de calendario de examenes
+// Crear certificados con info del alumno con json y asincronía Fetch
+// Ver de sumar clases
 // Sumar y eliminar alumnos
 // Sumar Curso? sumar notas? sumar asistencias? no repetir código? VER
-// Hacer "mensajes" arrays en vez de objeto
-// Crear certificados con info del alumno con json y asincronía Fetch
-// Sumar API de calendario de examenes
-// Librería SweetAlert2 para el aviso de mensaje de contacto enviado
-// Ver de sumar clases
+
 
 
 //////////////////////////////////////// ASIDE 
@@ -38,6 +39,16 @@ document.addEventListener("DOMContentLoaded", mostrarNombreDocente);
 
 let fecha = new Date();
 let diaSemana = fecha.getDay();
+let mensajes = [
+    "Hoy es día de descanso laboral =) .",
+    "Fuerzas tú puedes! \n\n Tienes clases de: \n\n > Aritmética en la Esc. Nº11 a las 10hs. \n > Geometría en la Esc. Nº30 a las 12hs.",
+    "Hoy sólo tienes clases de: \n\n > Aritmética en la Esc. Nº30 a las 10hs.",
+    "Vamos por la mitad de la semana! \n\n Tienes clases de: \n\n > Aritmética en la Esc. Nº11 a las 10hs. \n > Geometría en la Esc. Nº30 a las 12hs.",
+    "Vamos que hoy sólo tienes una clase! \n\n Tienes clases de: \n\n > Geometría en la Esc. Nº11 a las 10hs.",
+    "Último esfuerzo! \n\n Tienes clases de: \n\n > Aritmética en la Esc. Nº11 a las 10hs. \n\n > Geometría en la Esc. Nº30 a las 12hs.",
+    "¡Es fin de semana! \n \n  A disfrutar! =D "
+];
+
 let mensaje = "¡Hoy es " + obtenerNombreDia(diaSemana) + ".\n" + obtenerMensaje(diaSemana);
 
 function obtenerNombreDia(dia) {
@@ -46,21 +57,12 @@ function obtenerNombreDia(dia) {
 }
 
 function obtenerMensaje(diaSemana) {
-    let mensajes = {
-        0: "Hoy es día de descanso laboral =) .",
-        1: "Fuerzas tú puedes! \n\n Tienes clases de: \n\n > Aritmética en la Esc. Nº11 a las 10hs. \n > Geometría en la Esc. Nº30 a las 12hs.",
-        2: "Hoy sólo tienes clases de: \n\n > Aritmética en la Esc. Nº30 a las 10hs.",
-        3: "Vamos por la mitad de la semana! \n\n Tienes clases de: \n\n > Aritmética en la Esc. Nº11 a las 10hs. \n > Geometría en la Esc. Nº30 a las 12hs.",
-        4: "Vamos que hoy sólo tienes una clase! \n\n Tienes clases de: \n\n > Geometría en la Esc. Nº11 a las 10hs.",
-        5: "Último esfuerzo! \n\n Tienes clases de: \n\n > Aritmética en la Esc. Nº11 a las 10hs. \n\n > Geometría en la Esc. Nº30 a las 12hs.",
-        6: "¡Es fin de semana! \n \n  A disfrutar! =D "
-    };
     return mensajes[diaSemana];
 }
 
 // DOM
 let mensajeBienvenida = document.getElementById('funcionFecha');
-funcionFecha.innerText = mensaje;
+mensajeBienvenida.innerText = mensaje;
 
 
 ////////// TAREAS PENDIENTES (ASIDE) con localStorage + JSON
@@ -119,30 +121,22 @@ document.addEventListener("DOMContentLoaded", mostrarTareas);
 function enviarFormulario(event) {
     event.preventDefault(); //prevencion por defecto + en html estan los valores "requerido en cada campo"
 
-    // Obtener las dimensiones de la ventana principal
-    let ventanaPrincipalAncho = window.innerWidth;
-    let ventanaPrincipalAlto = window.innerHeight;
-
-    // Calcular la posición de la ventana emergente para que esté centrada
-    let popupAncho = 350; // Ancho de la ventana emergente
-    let popupAlto = 120;   // Alto de la ventana emergente
-    let left = (ventanaPrincipalAncho - popupAncho) / 2;  // div 2 la medida para que quede centrada
-    let top = (ventanaPrincipalAlto - popupAlto) / 2; // div 2 la medida para que quede centrada
-
-    // Para crear la ventana emergente + medidas y ubicación 
-    let popup = window.open("", "Popup", "width=" + popupAncho + ", height=" + popupAlto + ", top=" + top + ", left=" + left );
-
-    // Estilos CSS dentro de JS
-    popup.document.write("<style>body { background-color: #D7D7ED; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; }</style>");
-    popup.document.write("<p style='font-weight: bold; color: #978FC5; font-size: 20px;'>Mensaje enviado! =) Gracias!</p>");
-    popup.document.write('<html><head><title>Agenda Docente Digital</title></head><body>');
-    popup.document.write('</body></html>');
+    Swal.fire({
+        icon: "success",
+        title: "Mensaje enviado con éxito.",
+        text: "Le estaremos respondiendo a la brevedad",
+        width: 600,
+        padding: "3em",
+        color: "#716add",
+        background: "#fff",
+        backdrop: `rgba(0,0,123,0.3)`
+    });
 
     // Restablecer el formulario luego de enviarlo
     document.getElementById("formulario").reset();
 
     // Cerrar popup después de 4 seg.
-    setTimeout(() => { popup.close(); }, 4000); 
+    setTimeout(() => { Swal.close(); }, 5000); 
 }
 
 
