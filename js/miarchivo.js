@@ -2,6 +2,7 @@
 
 // Evitar que se sumen tareas vacías + cartel con innerText de aviso. (CHECK)
 // Librería SweetAlert2 para el aviso de mensaje de contacto enviado (CHECK)
+// Librería Toastify para aviso de sesión iniciada (CHECK)
 // Hacer "mensajes" arrays en vez de objeto (CHECK)
 // Sumar API de calendario de examenes
 // Crear certificados con info del alumno con json y asincronía Fetch
@@ -26,7 +27,22 @@ function guardarNombre(event){
     event.preventDefault();
     let nombre = document.getElementById("inputNombreDocente").value;
     localStorage.setItem('nombre', nombre);
+    if (nombre.trim() !== "") {
+        Toastify({
+            text: "Sesión Iniciada",
+            duration: 3000,
+            offset: {
+                x: 15, // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+                y: 30 // vertical axis - can be a number or a string indicating unity. eg: '2em'
+            },
+            stopOnFocus: true,
+            style: {
+                background: "linear-gradient(to right, #70b2c9, #8989bfc7)",
+            },
+        }).showToast();
+    }
     mostrarNombreDocente();
+    document.getElementById("inputNombreDocente").value = ""; // Limpiar el input
 }
 
 let nombreForm = document.getElementById("nombreFormulario")
