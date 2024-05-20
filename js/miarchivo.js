@@ -74,6 +74,7 @@ function sumarTarea() {
         avisoTareaVacia.innerText = "Tarea vacía, por favor escriba una tarea.";
         return;
     }
+    avisoTareaVacia.innerText = ""; // borrar el mensaje de error si se agrega una tarea
 
     let tarea = {
         nombre: sumarTareaInput,
