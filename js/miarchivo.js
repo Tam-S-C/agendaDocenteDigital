@@ -30,7 +30,7 @@ function guardarNombre(event){
     if (nombre.trim() !== "") {
         Toastify({
             text: "Sesión Iniciada",
-            duration: 3000,
+            duration: 2000,
             offset: {
                 x: 15,
                 y: 30
@@ -145,7 +145,8 @@ function enviarFormulario(event) {
         padding: "3em",
         color: "#716add",
         background: "#fff",
-        backdrop: `rgba(0,0,123,0.3)`
+        backdrop: `rgba(0,0,123,0.3)`,
+        confirmButtonText: "Salir"
     });
 
     // Restablecer el formulario luego de enviarlo
