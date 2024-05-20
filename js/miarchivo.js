@@ -1,22 +1,13 @@
-/* CAMBIOS REALIZADOS: PRE-ENTREGA 3 */
+/* CAMBIOS REALIZADOS: ENTREGA FINAL */
 
-// Info de materias con DATE en aside con innerText
-// Sumar storage y evento al inicio de sesión + devolver nombre en el bienvenido del aside
-// Listado de tareas pendientes (onclick, crear elementos y remove) + LOCALSTORAGE Y JSON
-// Planilla con checks para asistencias + notas con innerText con regularidad y promedio
-// SUGAR SYNTAX en linea, 30 saludo de bienvenido, en funcion promedio aprobado:desaprobado
-// y en estado regular:irregular.
-
-
-/* Para la entrega final, lo ideal sería sumar que también se guarde 
-en localstorage la info de las notas, asistencias e informes, 
-incluso ver si sumar la funcionalidad de cambiar de curso/materia 
-y agregar/eliminar alumnos y cantidad de notas/asistencias.
-Además, ver de mejorar el código para no repetirlo con cada alumno, 
-pero por temas tiempos tuve que dejarlo así repitiéndolo.
-Y soñando un poco, hacer que a los aprobados se les cree automático un certificado 
-+ a esto sumarle asincronía para la espera del armado del crtificado
-+ cambiar ventana de "mensaje enviado" en el form de contacto por uso de SweetAlert2*/
+// Evitar que se sumen tareas vacías + cartel con innerText de aviso. (CHECK)
+// Sumar y eliminar alumnos
+// Sumar Curso? sumar notas? sumar asistencias? no repetir código? VER
+// Hacer "mensajes" arrays en vez de objeto
+// Crear certificados con info del alumno con json y asincronía Fetch
+// Sumar API de calendario de examenes
+// Librería SweetAlert2 para el aviso de mensaje de contacto enviado
+// Ver de sumar clases
 
 
 //////////////////////////////////////// ASIDE 
@@ -76,6 +67,14 @@ funcionFecha.innerText = mensaje;
 
 function sumarTarea() {
     let sumarTareaInput = document.getElementById("tareasPendientes").value; // Obtener el valor del input
+
+    //No dejar sumar una tarea vacía
+    let avisoTareaVacia = document.getElementById("avisoTareaVacia");
+    if (sumarTareaInput === "") {
+        avisoTareaVacia.innerText = "Tarea vacía, por favor escriba una tarea.";
+        return;
+    }
+
     let tarea = {
         nombre: sumarTareaInput,
         completada: false
