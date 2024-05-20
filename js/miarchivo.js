@@ -32,8 +32,8 @@ function guardarNombre(event){
             text: "Sesión Iniciada",
             duration: 3000,
             offset: {
-                x: 15, // horizontal axis - can be a number or a string indicating unity. eg: '2em'
-                y: 30 // vertical axis - can be a number or a string indicating unity. eg: '2em'
+                x: 15,
+                y: 30
             },
             stopOnFocus: true,
             style: {
