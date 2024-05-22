@@ -9,7 +9,7 @@ body {
 /*css header*/
 
 header {
-    background-color: #ace9ff;
+    background: linear-gradient(to right, #ace9ff, #D7D7ED);
     padding: 10px 40px;
     display: flex;
     justify-content: space-between;
@@ -159,7 +159,7 @@ button:hover {
     cursor: pointer;
 }
 
-#nombre, #apellido {
+#nombreContacto, #apellido {
     border-radius: 10px;
     border-color: #D7D7ED;
     width: 230px;
@@ -191,7 +191,7 @@ button:hover {
 /*css footer*/
 
 footer {
-    background-color: #D7D7ED;
+    background: linear-gradient(to right, #ace9ff, #D7D7ED);
     font-size: 14px;
     text-align: center;
     padding: 10px;

@@ -1,9 +1,9 @@
 /* CAMBIOS REALIZADOS: ENTREGA FINAL */
 
 // Evitar que se sumen tareas vacías + cartel con innerText de aviso. (CHECK)
-// Librería SweetAlert2 para el aviso de mensaje de contacto enviado (CHECK)
+// Librería SweetAlert2 para el aviso de mensaje de contacto enviado + asincronía con setTimeOut para cerrarlo (CHECK)
 // Librería Toastify para aviso de sesión iniciada (CHECK)
-// Hacer "mensajes" arrays en vez de objeto (CHECK)
+// Hacer "mensajes" array en vez de objeto (CHECK)
 // Sumar API de calendario de examenes
 // Crear certificados con info del alumno con json y asincronía Fetch
 // Ver de sumar clases
@@ -32,7 +32,7 @@ function guardarNombre(event){
             text: "Sesión Iniciada",
             duration: 2000,
             offset: {
-                x: 15,
+                x: 14,
                 y: 30
             },
             stopOnFocus: true,
@@ -80,6 +80,7 @@ function obtenerMensaje(diaSemana) {
 let mensajeBienvenida = document.getElementById('funcionFecha');
 mensajeBienvenida.innerText = mensaje;
 
+console.log(typeof mensajes);
 
 ////////// TAREAS PENDIENTES (ASIDE) con localStorage + JSON
 
@@ -132,17 +133,17 @@ function mostrarTareas() {
 document.addEventListener("DOMContentLoaded", mostrarTareas);
 
 
-//////////////////////////////////////// FORMULARIO DE CONTACTO
+//////////////////////////////////////// FORMULARIO DE CONTACTO + asincronía con setTimeOut para el cierre del alert
 
 function enviarFormulario(event) {
     event.preventDefault(); //prevencion por defecto + en html estan los valores "requerido en cada campo"
 
     Swal.fire({
         icon: "success",
-        title: "Mensaje enviado con éxito.",
-        text: "Le estaremos respondiendo a la brevedad",
-        width: 600,
-        padding: "3em",
+        title: "¡Mensaje enviado con éxito!",
+        text: "Le estaremos respondiendo a la brevedad.",
+        width: 580,
+        padding: "1em",
         color: "#716add",
         background: "#fff",
         backdrop: `rgba(0,0,123,0.3)`,
