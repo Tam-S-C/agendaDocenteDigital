@@ -3,9 +3,9 @@
 // Evitar que se sumen tareas vacías + cartel con innerText de aviso. (CHECK)
 // Librería SweetAlert2 para el aviso de mensaje de contacto enviado + asincronía con setTimeOut para cerrarlo (CHECK)
 // Librería Toastify para aviso de sesión iniciada (CHECK)
-// Hacer "mensajes" array en vez de objeto (CHECK)
+// Corregido: "mensajes" array en vez de objeto (CHECK)
+// API sacada de rapidapi.com api de frases, categoría motivacionales + Fetch (CHECK)
 // Sumar API de calendario de examenes
-// Crear certificados con info del alumno con json y asincronía Fetch
 // Ver de sumar clases
 // Sumar y eliminar alumnos
 // Sumar Curso? sumar notas? sumar asistencias? no repetir código? VER
@@ -13,6 +13,28 @@
 
 
 //////////////////////////////////////// ASIDE 
+
+
+////////// FRASES CON API y FETCH
+
+const URL = "https://api-get-quotes.vercel.app/api/v1/category/Motivation";
+const lista = document.querySelector("#listado");
+
+fetch(URL)
+    .then((resp) => resp.json())
+    .then((data) => {
+        const randomQuote = data.quotes[Math.floor(Math.random() * data.quotes.length)]; // Quote aleatoria
+        const li = document.createElement("li");
+        li.innerHTML = `
+            <h4>${randomQuote.quote}</h4>
+            <p>${randomQuote.author}</p>
+        `;
+        lista.append(li);
+    })
+    .catch((error) => {
+        console.error('Error fetching data:', error);
+    });
+
 
 ////////// BIENVENIDO DOCENTE + inicio sesión con localStorage + sugar syntax
 
@@ -80,7 +102,6 @@ function obtenerMensaje(diaSemana) {
 let mensajeBienvenida = document.getElementById('funcionFecha');
 mensajeBienvenida.innerText = mensaje;
 
-console.log(typeof mensajes);
 
 ////////// TAREAS PENDIENTES (ASIDE) con localStorage + JSON
 
