@@ -205,6 +205,14 @@ footer p {
     margin: 0;
 }
 
+#certificadoIMG{
+    width: 300px;
+}
+
+#certificadoIMG:hover {
+    width: 600px;
+    transition: 0.5s;
+}
 
 /* RESPONSIVE tablets*/
 
@@ -246,5 +254,10 @@ footer p {
 
     footer p {
         font-size: 12px;
+    }
+
+    #certificadoIMG:hover {
+        width: 450px;
+        transition: 0.5s;
     }
 }

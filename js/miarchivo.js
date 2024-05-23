@@ -18,7 +18,7 @@
 ////////// FRASES CON API y FETCH
 
 const URL = "https://api-get-quotes.vercel.app/api/v1/category/Motivation";
-const lista = document.querySelector("#listado");
+const frase = document.querySelector("#fraseDelDia");
 
 fetch(URL)
     .then((resp) => resp.json())
@@ -26,10 +26,10 @@ fetch(URL)
         const randomQuote = data.quotes[Math.floor(Math.random() * data.quotes.length)]; // Quote aleatoria
         const li = document.createElement("li");
         li.innerHTML = `
-            <h4>${randomQuote.quote}</h4>
-            <p>${randomQuote.author}</p>
+            <h4>"${randomQuote.quote}"</h4>
+            <p>- ${randomQuote.author}.</p>
         `;
-        lista.append(li);
+        frase.append(li);
     })
     .catch((error) => {
         console.error('Error fetching data:', error);
@@ -180,6 +180,29 @@ function enviarFormulario(event) {
 
 
 //////////////////////////////////////// MAIN
+
+////////// CERTIFICADO CON API y FETCH
+
+const certificado = './data/alumnos.json';
+const infoCertificado = document.querySelector("#certificado");
+
+fetch(certificado)
+    .then((resp) => resp.json())
+    .then((data) => {
+        data.alumnos.forEach((alumno) => {
+            const li = document.createElement("li");
+            li.innerHTML = `
+                <h4>${alumno.nombre} ${alumno.apellido}</h4>
+                <img id="certificadoIMG" src="${alumno.imagen}" alt="Certificado">
+            `;
+            infoCertificado.append(li);
+        });
+    })
+    .catch((error) => {
+        console.error('Error fetching data:', error);
+    });
+
+
 
 
 //////////////////////////////////////////////////////// ASISTENCIAS y NOTAS con Mes 1 y alumno 1

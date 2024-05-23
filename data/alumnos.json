@@ -1,0 +1,24 @@
+{
+    "alumnos": [
+        {
+            "id": 1,
+            "nombre": "María",
+            "apellido": "Gómez",
+            "imagen": "./img/id1_certificado.png"
+        },
+
+        {
+            "id": 2,
+            "nombre": "Juan",
+            "apellido": "Pérez",
+            "imagen": "./img/id2_certificado.png"
+        },
+
+        {
+            "id": 3,
+            "nombre": "Pablo",
+            "apellido": "López",
+            "imagen": "./img/id3_certificado.png"
+        }
+    ]
+}
