@@ -1101,21 +1101,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
 ////////// CERTIFICADO CON API y FETCH
 
-const certificado = './data/alumnos.json';
-const infoCertificado = document.querySelector("#certificado");
+let certificadosCargados = false;
 
-fetch(certificado)
-    .then((resp) => resp.json())
-    .then((data) => {
-        data.alumnos.forEach((alumno) => {
-            const li = document.createElement("li");
-            li.innerHTML = `
-                <h4>${alumno.nombre} ${alumno.apellido}</h4>
-                <img id="certificadoIMG" src="${alumno.imagen}" alt="Certificado">
-            `;
-            infoCertificado.append(li);
+function cargarCertificados() {
+    if (certificadosCargados) return; // Para evitar que si ya estar cargados no los vuelva a cargar.
+
+    const certificado = './data/alumnos.json';
+    const infoCertificado = document.querySelector("#certificado");
+
+    fetch(certificado)
+        .then((resp) => resp.json())
+        .then((data) => {
+            data.alumnos.forEach((alumno) => {
+                const li = document.createElement("li");
+                li.innerHTML = `
+                    <h4>${alumno.nombre} ${alumno.apellido}</h4>
+                    <img id="certificadoIMG" src="${alumno.imagen}" alt="Certificado">
+                `;
+                infoCertificado.appendChild(li);
+            });
+            certificadosCargados = true; // Marcar como cargados
+        })
+        .catch((error) => {
+            console.error('Error fetching data:', error);
         });
-    })
-    .catch((error) => {
-        console.error('Error fetching data:', error);
-    });
+}
