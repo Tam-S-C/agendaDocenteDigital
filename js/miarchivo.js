@@ -5,17 +5,23 @@
 // Librería Toastify para aviso de sesión iniciada (CHECK)
 // Corregido: "mensajes" array en vez de objeto (CHECK)
 // API sacada de rapidapi.com api de frases, categoría motivacionales + Fetch (CHECK)
-// Sumar API de calendario de examenes
-// Ver de sumar clases
-// Sumar y eliminar alumnos
-// Sumar Curso? sumar notas? sumar asistencias? no repetir código? VER
+// "API local", armado de .json con datos de los alumnos e imagen de certificado. (CHECK)
 
+///////////////////////////////////////
+
+/* CAMBIOS REALIZADOS: PRE-ENTREGA 3 */
+
+// Info de materias con DATE en aside con innerText
+// Sumar storage y evento al inicio de sesión + devolver nombre en el bienvenido del aside
+// Listado de tareas pendientes (onclick, crear elementos y remove) + LOCALSTORAGE Y JSON
+// Planilla con checks para asistencias + notas con innerText con regularidad y promedio
+// SUGAR SYNTAX en saludo de bienvenida, en funcion promedio aprobado:desaprobado y en estado regular:irregular.
 
 
 //////////////////////////////////////// ASIDE 
 
 
-////////// FRASES CON API y FETCH
+////////// FRASES MOTIVACIONALES CON API y FETCH
 
 const URL = "https://api-get-quotes.vercel.app/api/v1/category/Motivation";
 const frase = document.querySelector("#fraseDelDia");
@@ -180,29 +186,6 @@ function enviarFormulario(event) {
 
 
 //////////////////////////////////////// MAIN
-
-////////// CERTIFICADO CON API y FETCH
-
-const certificado = './data/alumnos.json';
-const infoCertificado = document.querySelector("#certificado");
-
-fetch(certificado)
-    .then((resp) => resp.json())
-    .then((data) => {
-        data.alumnos.forEach((alumno) => {
-            const li = document.createElement("li");
-            li.innerHTML = `
-                <h4>${alumno.nombre} ${alumno.apellido}</h4>
-                <img id="certificadoIMG" src="${alumno.imagen}" alt="Certificado">
-            `;
-            infoCertificado.append(li);
-        });
-    })
-    .catch((error) => {
-        console.error('Error fetching data:', error);
-    });
-
-
 
 
 //////////////////////////////////////////////////////// ASISTENCIAS y NOTAS con Mes 1 y alumno 1
@@ -890,7 +873,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-////////// ASISTENCIAS y NOTAS con Mes 2 y alumno 2
+////////// ASISTENCIAS y NOTAS con Mes 2 y alumno 3
 
 document.addEventListener("DOMContentLoaded", function() {
     let selectAlumno = document.getElementById("selector-alumno2");
@@ -1114,3 +1097,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
     actualizarInformeFinal();
 });
+
+
+////////// CERTIFICADO CON API y FETCH
+
+const certificado = './data/alumnos.json';
+const infoCertificado = document.querySelector("#certificado");
+
+fetch(certificado)
+    .then((resp) => resp.json())
+    .then((data) => {
+        data.alumnos.forEach((alumno) => {
+            const li = document.createElement("li");
+            li.innerHTML = `
+                <h4>${alumno.nombre} ${alumno.apellido}</h4>
+                <img id="certificadoIMG" src="${alumno.imagen}" alt="Certificado">
+            `;
+            infoCertificado.append(li);
+        });
+    })
+    .catch((error) => {
+        console.error('Error fetching data:', error);
+    });
