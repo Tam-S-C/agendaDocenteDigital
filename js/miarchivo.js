@@ -4,8 +4,9 @@
 // Librería SweetAlert2 para el aviso de mensaje de contacto enviado + asincronía con setTimeOut para cerrarlo. (CHECK)
 // Librería Toastify para aviso de sesión iniciada. (CHECK)
 // Corregido: "mensajes" array en vez de objeto. (CHECK)
-// API sacada de rapidapi.com api de frases, categoría motivacionales + Fetch. (CHECK)
+// API de frases de api-get-quotes.vercel.app, categoría motivacionales + Fetch. (CHECK)
 // "API local", armado de .json con datos de los alumnos e imagen de certificado. (CHECK)
+// API calendario https://date.nager.at/swagger/index.html (CHECK)
 
 ///////////////////////////////////////
 
@@ -19,6 +20,31 @@
 
 
 //////////////////////////////////////// ASIDE 
+
+
+////////// CALENDARIO
+
+const URLCalendario = 'https://date.nager.at/api/v3/NextPublicHolidays/ar';
+const calendar = document.querySelector("#calendarioApi");
+
+fetch(URLCalendario)
+    .then((resp) => resp.json())
+    .then((data) => {
+        // Filtrar los feriados para mostrar solo los de 2024
+        const holidays2024 = data.filter((holiday) => holiday.date.startsWith('2024'));
+        
+        holidays2024.forEach((holiday) => {
+            const li = document.createElement("li");
+            li.innerHTML = `
+                <p id="feriados">${holiday.localName} - ${holiday.date}</p>
+            `;
+            calendar.append(li);
+        });
+    })
+    .catch((error) => {
+        console.error('Error fetching data:', error);
+    });
+
 
 
 ////////// FRASES MOTIVACIONALES CON API y FETCH

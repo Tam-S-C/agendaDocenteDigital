@@ -188,6 +188,10 @@ button:hover {
     min-height: 30px
 }
 
+#feriados{
+    font-size: 11px;
+}
+
 /*css footer*/
 
 footer {
