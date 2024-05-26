@@ -58,7 +58,7 @@ fetch(URL)
         const randomQuote = data.quotes[Math.floor(Math.random() * data.quotes.length)]; // Quote aleatoria
         const li = document.createElement("li");
         li.innerHTML = `
-            <h4>"${randomQuote.quote}"</h4>
+            <h4 id="fraseCSS">"${randomQuote.quote}"</h4>
             <p>- ${randomQuote.author}.</p>
         `;
         frase.append(li);
@@ -1053,6 +1053,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+
 ////////////////////////// INFORME FINAL ALUMNO 3
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -1120,12 +1121,11 @@ document.addEventListener("DOMContentLoaded", function() {
     selectorFinal.addEventListener("change", function() {
         actualizarInformeFinal();
     });
-
     actualizarInformeFinal();
 });
 
 
-////////// CERTIFICADO CON API y FETCH
+////////// CERTIFICADO CON API LOCAL y FETCH
 
 let certificadosCargados = false;
 

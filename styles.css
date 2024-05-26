@@ -92,6 +92,9 @@ th, td {
 .notas, .notas1, .notas2, .notas3,
 .notas4, .notas5, .notas6, .notas7, .notas8, .notas9 {
     width: 32px;
+    border-radius: 5px;
+    border-color: white;
+    font-size: 12px;
 }
 
 aside {
@@ -104,9 +107,20 @@ aside {
     box-shadow: 3px 3px 0px #8989bfc7;
 }
 
+#fraseCSS{
+    font-style: italic;
+    color: white;
+    filter: drop-shadow(1px 1px 2px black);
+}
+
 #avisoTareaVacia{
     font-size: 12px;
     color: red;
+}
+
+#tareasPendientes{
+    border-radius: 15px;
+    border-color: white;
 }
 
 ul {
@@ -133,6 +147,21 @@ button:hover {
     border-radius: 20px;
     transition: 0.5s;
 }
+
+
+#certificadoIMG{
+    border-radius: 3px;
+    width: 300px;
+    transition: width 0.5s;
+    box-shadow: 5px 5px 5px #41b480d9;
+}
+
+#certificadoIMG:hover {
+    width: 700px;
+    transition: 0.5s;
+}
+
+
 
 /*css contacto*/
 
@@ -209,15 +238,6 @@ footer p {
     margin: 0;
 }
 
-#certificadoIMG{
-    width: 300px;
-    transition: width 0.5s;
-}
-
-#certificadoIMG:hover {
-    width: 600px;
-    transition: 0.5s;
-}
 
 /* RESPONSIVE tablets*/
 
@@ -269,5 +289,9 @@ footer p {
     #certificadoIMG:hover {
         width: 230px;
         transition: 0.5s;
+    }
+
+    #comentario {
+        width: 280px;
     }
 }
