@@ -5,7 +5,7 @@
 // Librería Toastify para aviso de sesión iniciada. (CHECK)
 // Corregido: "mensajes" array en vez de objeto. (CHECK)
 // API de frases de api-get-quotes.vercel.app, categoría motivacionales + Fetch. (CHECK)
-// "API local", armado de .json con datos de los alumnos e imagen de certificado. (CHECK)
+// .json local con datos de los alumnos. (CHECK)
 // API calendario https://date.nager.at/swagger/index.html (CHECK)
 
 ///////////////////////////////////////
@@ -1127,26 +1127,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
 ////////// CERTIFICADO CON API LOCAL y FETCH
 
-let certificadosCargados = false;
+let datosCargados = false;
 
-function cargarCertificados() {
-    if (certificadosCargados) return; // Para evitar que si ya estar cargados no los vuelva a cargar.
+function cargarDatosAlumnos() {
+    if (datosCargados) return; // Para evitar que si ya estar cargados no los vuelva a cargar.
 
-    const certificado = './data/alumnos.json';
-    const infoCertificado = document.querySelector("#certificado");
+    const infoAlumnos = './data/alumnos.json';
+    const infoLegajo = document.querySelector("#infoLegajo");
 
-    fetch(certificado)
+    fetch(infoAlumnos)
         .then((resp) => resp.json())
         .then((data) => {
             data.alumnos.forEach((alumno) => {
                 const li = document.createElement("li");
                 li.innerHTML = `
                     <h4>${alumno.nombre} ${alumno.apellido}</h4>
-                    <img id="certificadoIMG" src="${alumno.imagen}" alt="Certificado">
+                    <h5>DNI: ${alumno.dni}</h5>
+                    <h5>Materia: ${alumno.materia}</h5>
+                    <h5>Dirección: ${alumno.direccion}</h5>
                 `;
-                infoCertificado.appendChild(li);
+                infoLegajo.appendChild(li);
             });
-            certificadosCargados = true; // Marcar como cargados
+            datosCargados = true; // Marcar como cargados
         })
         .catch((error) => {
             console.error('Error fetching data:', error);

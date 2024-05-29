@@ -24,9 +24,10 @@
 
 > API de frases de api-get-quotes.vercel.app, categoría motivacionales + Fetch.
 
-> "API local", armado de .json con datos de los alumnos e imagen de certificado.
+>.json local con datos de los alumnos.
 
 > API calendario https://date.nager.at/swagger/index.html con feriados próximos de Arg.
+
 
 
 >>> /* CAMBIOS REALIZADOS: PRE-ENTREGA 3 */

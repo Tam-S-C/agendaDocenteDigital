@@ -4,6 +4,9 @@
             "id": 1,
             "nombre": "María",
             "apellido": "Gómez",
+            "dni": "43.111.222",
+            "materia": "Matemática",
+            "direccion": "CalleFalsa 123",
             "imagen": "./img/id1_certificado.png"
         },
 
@@ -11,6 +14,9 @@
             "id": 2,
             "nombre": "Juan",
             "apellido": "Pérez",
+            "dni": "44.123.555",
+            "materia": "Matemática",
+            "direccion": "CalleNoReal 365",
             "imagen": "./img/id2_certificado.png"
         },
 
@@ -18,6 +24,9 @@
             "id": 3,
             "nombre": "Pablo",
             "apellido": "López",
+            "dni": "45.789.312",
+            "materia": "Matemática",
+            "direccion": "CalleInventada 321",
             "imagen": "./img/id3_certificado.png"
         }
     ]
