@@ -1139,30 +1139,38 @@ function cerrarDatos() {
 }
 
 function cargarDatosAlumnos() {
-    if (datosCargados) return; // Para evitar que si ya estar cargados no los vuelva a cargar.
+    if (datosCargados) return; // Para evitar que si ya están cargados no los vuelva a cargar.
 
-    const infoAlumnos = './data/alumnos.json';
-    const infoLegajo = document.querySelector("#infoLegajo");
-    const cerrarBoton = document.querySelector("#cerrarBoton");
+    const spinner = document.querySelector("#spinner");
 
-    fetch(infoAlumnos)
-        .then((resp) => resp.json())
-        .then((data) => {
-            data.alumnos.forEach((alumno) => {
-                const li = document.createElement("li");
-                li.innerHTML = `
-                    <h4>${alumno.nombre} ${alumno.apellido}</h4>
-                    <h5>DNI: <span>${alumno.dni}</span></h5>
-                    <h5>Padre/Madre/Tutor: <span>${alumno.PadreMadreTutor}</span></h5>
-                    <h5>Materia: <span>${alumno.materia}</span></h5>
-                    <h5>Dirección: <span>${alumno.direccion}</span></h5>
-                `;
-                infoLegajo.appendChild(li);
+    spinner.style.display = 'block'; // Mostrar el spinner
+
+    setTimeout(() => {
+        const infoAlumnos = './data/alumnos.json';
+        const infoLegajo = document.querySelector("#infoLegajo");
+        const cerrarBoton = document.querySelector("#cerrarBoton");
+
+        fetch(infoAlumnos)
+            .then((resp) => resp.json())
+            .then((data) => {
+                data.alumnos.forEach((alumno) => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `
+                        <h4>${alumno.nombre} ${alumno.apellido}</h4>
+                        <h5>DNI: <span>${alumno.dni}</span></h5>
+                        <h5>Padre/Madre/Tutor: <span>${alumno.PadreMadreTutor}</span></h5>
+                        <h5>Materia: <span>${alumno.materia}</span></h5>
+                        <h5>Dirección: <span>${alumno.direccion}</span></h5>
+                    `;
+                    infoLegajo.appendChild(li);
+                });
+                datosCargados = true; // Marcar como cargados
+                cerrarBoton.style.display = 'inline'; // Mostrar el botón de cerrar
+                spinner.style.display = 'none'; // Ocultar el spinner
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+                spinner.style.display = 'none'; // Ocultar el spinner en caso de error
             });
-            datosCargados = true; // Marcar como cargados
-            cerrarBoton.style.display = 'inline';
-        })
-        .catch((error) => {
-            console.error('Error fetching data:', error);
-        });
+    }, 2000); // Esperar 2 segundos antes de cargar los datos
 }
