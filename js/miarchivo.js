@@ -1125,15 +1125,25 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-////////// CERTIFICADO CON API LOCAL y FETCH
+////////// LEGAJO con .json LOCAL y FETCH
 
 let datosCargados = false;
+
+function cerrarDatos() {
+    const infoLegajo = document.querySelector("#infoLegajo");
+    const cerrarBoton = document.querySelector("#cerrarBoton");
+
+    infoLegajo.innerHTML = ''; // Eliminar el contenido de infoLegajo
+    datosCargados = false; // Marcar como no cargados
+    cerrarBoton.style.display = 'none'; // Ocultar el botón de cerrar
+}
 
 function cargarDatosAlumnos() {
     if (datosCargados) return; // Para evitar que si ya estar cargados no los vuelva a cargar.
 
     const infoAlumnos = './data/alumnos.json';
     const infoLegajo = document.querySelector("#infoLegajo");
+    const cerrarBoton = document.querySelector("#cerrarBoton");
 
     fetch(infoAlumnos)
         .then((resp) => resp.json())
@@ -1142,13 +1152,15 @@ function cargarDatosAlumnos() {
                 const li = document.createElement("li");
                 li.innerHTML = `
                     <h4>${alumno.nombre} ${alumno.apellido}</h4>
-                    <h5>DNI: ${alumno.dni}</h5>
-                    <h5>Materia: ${alumno.materia}</h5>
-                    <h5>Dirección: ${alumno.direccion}</h5>
+                    <h5>DNI: <span>${alumno.dni}</span></h5>
+                    <h5>Padre/Madre/Tutor: <span>${alumno.PadreMadreTutor}</span></h5>
+                    <h5>Materia: <span>${alumno.materia}</span></h5>
+                    <h5>Dirección: <span>${alumno.direccion}</span></h5>
                 `;
                 infoLegajo.appendChild(li);
             });
             datosCargados = true; // Marcar como cargados
+            cerrarBoton.style.display = 'inline';
         })
         .catch((error) => {
             console.error('Error fetching data:', error);
