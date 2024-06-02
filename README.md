@@ -1,4 +1,4 @@
-> **JS-CoderHouse** >> Comisión 53990
+**JS-CoderHouse** >> Comisión 53990
 
 > Alumna: Tamara S. Canzobre
 
@@ -10,6 +10,7 @@
 
 + GitHub: https://github.com/Tam-S-C/agendaDocenteDigital/
 
+__________________________________________________________
 
 > [!NOTE]
 > **ENTREGA FINAL**
@@ -29,4 +30,4 @@
 
 + .json local con datos de los alumnos desde su IDentificador.
 
-+ API calendario https://date.nager.at/swagger/index.html con feriados próximos de Arg.
++ API calendario date.nager.at/swagger/index.html con feriados próximos de Arg.
