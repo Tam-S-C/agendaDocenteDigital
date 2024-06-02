@@ -245,13 +245,13 @@ span {
     cursor: pointer;
 }
 
-#nombreContacto, #apellido {
+#nombreContacto, #apellidoContacto {
     border-radius: 10px;
     border-color: #D7D7ED;
     width: 230px;
 }
 
-#email {
+#emailContacto {
     border-radius: 10px;
     border-color: #D7D7ED;
     width: 246px;
@@ -272,6 +272,7 @@ span {
     resize: vertical;
     min-height: 30px
 }
+
 
 #feriados{
     font-size: 11px;

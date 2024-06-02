@@ -99,8 +99,8 @@ function guardarNombre(event){
     document.getElementById("inputNombreDocente").value = ""; // Limpiar el input
 }
 
-let nombreForm = document.getElementById("nombreFormulario")
-let escucharSubmit = document.addEventListener("submit", guardarNombre);
+// Escuchar el evento de envío del formulario de inicio de sesión
+document.getElementById("nombreFormulario").addEventListener("submit", guardarNombre);
 
 document.addEventListener("DOMContentLoaded", mostrarNombreDocente);
 
@@ -133,7 +133,6 @@ function obtenerMensaje(diaSemana) {
 // DOM
 let mensajeBienvenida = document.getElementById('funcionFecha');
 mensajeBienvenida.innerText = mensaje;
-
 
 
 ////////// TAREAS PENDIENTES (ASIDE) con localStorage + JSON
@@ -189,9 +188,11 @@ document.addEventListener("DOMContentLoaded", mostrarTareas);
 
 //////////////////////////////////////// FORMULARIO DE CONTACTO + asincronía con setTimeOut para el cierre del alert + SweetAlert2
 
+// Función para enviar el formulario de contacto
 function enviarFormulario(event) {
-    event.preventDefault(); //prevencion por defecto + en html estan los valores "requerido en cada campo"
+    event.preventDefault(); // Prevención por defecto
 
+    // Mostrar un mensaje de éxito usando SweetAlert2
     Swal.fire({
         icon: "success",
         title: "¡Mensaje enviado con éxito!",
@@ -206,7 +207,7 @@ function enviarFormulario(event) {
 
     // Restablecer el formulario luego de enviarlo
     document.getElementById("formulario").reset();
-
-    // Cerrar popup después de 4 seg.
-    setTimeout(() => { Swal.close(); }, 5000); 
 }
+
+// Escuchar el evento de envío del formulario para llamar a la función enviarFormulario
+document.getElementById("formulario").addEventListener("submit", enviarFormulario);
