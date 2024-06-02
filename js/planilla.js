@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     let currentId = 1;
 
-    // Función para agregar un alumno
     function agregarAlumno(nombreApellido) {
         let meses = ["marzo", "abril", "mayo"];
 
@@ -18,13 +17,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     ${[1, 2, 3, 4, 5].map(i => `<input type="checkbox" name="asistenciaMes_${mes}_Al_${currentId}[]" value="${i}" class="checkboxMes_${mes}_Alumno_${currentId}">`).join(' ')}
                 </td>
                 <td>
-                    ${[1, 2, 3].map(i => `<input type="number" name="nota_${i}_${mes}_Al_${currentId}[]" min="0" max="10" class="notas_${mes}_Alumno_${currentId}">`).join(' ')}
+                    ${[1, 2, 3].map(i => `<input type="number" id="notasCheck" name="nota_${i}_${mes}_Al_${currentId}[]" min="0" max="10" class="notas_${mes}_Alumno_${currentId}">`).join(' ')}
                 </td>
             `;
 
             tablaAlumnos.appendChild(tr);
 
-            // Agregar eventos input y click a los checkboxes e inputs de notas
             tr.querySelectorAll('input[type="checkbox"], input[type="number"]').forEach(input => {
                 input.addEventListener("input", () => {
                     actualizarInformeMensual(mes);
@@ -33,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
 
-        // Añadir el alumno a las opciones del informe final y a los informes mensuales
         meses.forEach(mes => {
             let informeMensual = document.querySelector(`#${mes} .selector-alumno`);
             let option = document.createElement("option");
@@ -51,7 +48,6 @@ document.addEventListener("DOMContentLoaded", function() {
         currentId++;
     }
 
-    // Función para borrar un alumno por ID
     function borrarAlumno(id) {
         let alumnoClass = `.alumno-${id.toString().padStart(2, '0')}`;
         let filas = document.querySelectorAll(alumnoClass);
@@ -65,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function() {
         filas.forEach(fila => fila.remove());
         avisoIDerror.innerText = "";
 
-        // Eliminar el alumno de las opciones del informe final y de los informes mensuales
         let informeFinal = document.getElementById("selector-informe-final");
         let informeMensuales = document.querySelectorAll(".selector-alumno");
         Array.from(informeFinal.options).forEach((option, index) => {
@@ -81,19 +76,18 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
 
-        actualizarInformeFinal(); // Actualizar el informe final después de borrar un alumno
+        actualizarInformeFinal();
 
         return true;
     }
 
-    // Event listeners para los botones de agregar y borrar alumnos
     document.getElementById("sumarAlumnoBoton").addEventListener("click", () => {
         let nombreApellido = document.getElementById("nombreApellido").value.trim();
         let avisoAlumnoVacio = document.getElementById("avisoAlumnoVacio");
 
         if (nombreApellido !== "") {
             agregarAlumno(nombreApellido);
-            document.getElementById("nombreApellido").value = ""; // Limpiar el input
+            document.getElementById("nombreApellido").value = "";
             avisoAlumnoVacio.innerText = "";
         } else {
             avisoAlumnoVacio.innerText = "Input vacío, por favor escriba un nombre y apellido.";
@@ -116,11 +110,9 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("borrarAlumnoId").value = "";
         } else {
             avisoIDVacio.innerText = "Inserte un ID válido";
-            avisoIDVacio.innerText = "Inserte un ID válido, ej: 01, 02, 03.";
         }
     });
 
-    // Función para actualizar el informe mensual
     function actualizarInformeMensual(mes) {
         let selector = document.getElementById(`selector-alumno-${mes}`);
         let alumnoId = parseInt(selector.value);
@@ -147,12 +139,10 @@ document.addEventListener("DOMContentLoaded", function() {
             let informe = document.querySelector(`#${mes} .informe`);
             informe.innerText = `El alumno seleccionado tiene ${promedioNotas.toFixed(2)} de promedio y ${promedioAsistencias.toFixed(2)}% de asistencia.`;
         } else {
-            // Si no se seleccionó ningún alumno, limpiamos el informe mensual
             document.querySelector(`#${mes} .informe`).innerText = "";
         }
     }
 
-    // Función para actualizar el informe final
     function actualizarInformeFinal() {
         let selector = document.getElementById("selector-informe-final");
         let alumnoId = parseInt(selector.value);
@@ -194,41 +184,97 @@ document.addEventListener("DOMContentLoaded", function() {
 
             resultadoFinal.innerText += ` (${estado})`;
         } else {
-            // Si no se seleccionó ningún alumno, limpiamos el resultado final
             document.getElementById("resultadoFinal").innerText = "";
         }
     }
 
-    // Event listeners para los selectores de alumnos de cada mes
     ["marzo", "abril", "mayo"].forEach(mes => {
         document.getElementById(`selector-alumno-${mes}`).addEventListener("change", () => {
             actualizarInformeMensual(mes);
         });
     });
 
-    // Event listener para el selector de informe final
     document.getElementById("selector-informe-final").addEventListener("change", actualizarInformeFinal);
 });
 
-
-// Función para obtener las notas de un alumno en un mes
 function obtenerNotasAlumno(alumnoId, mes) {
     let notas = Array.from(document.querySelectorAll(`.notas_${mes}_Alumno_${alumnoId}`)).map(input => parseFloat(input.value) || 0);
-    console.log(`Elementos encontrados para las notas del alumno ${alumnoId} en el mes ${mes}: `, document.querySelectorAll(`.notas_${mes}_Alumno_${alumnoId}`));
-    console.log(`Notas obtenidas para el alumno ${alumnoId} en el mes ${mes}: `, notas);
     return notas;
 }
 
-// Función para obtener las asistencias de un alumno en un mes
 function obtenerAsistenciasAlumno(alumnoId, mes) {
     let asistencias = Array.from(document.querySelectorAll(`.checkboxMes_${mes}_Alumno_${alumnoId}`)).map(checkbox => checkbox.checked ? 1 : 0);
-    console.log(`Checkbox encontrados para las asistencias del alumno ${alumnoId} en el mes ${mes}: `, document.querySelectorAll(`.checkboxMes_${mes}_Alumno_${alumnoId}`));
-    console.log(`Asistencias obtenidas para el alumno ${alumnoId} en el mes ${mes}: `, asistencias);
     return asistencias;
 }
 
-// Función para calcular el promedio de un array de números
 function calcularPromedio(numeros) {
     let suma = numeros.reduce((acc, num) => acc + num, 0);
     return suma / numeros.length;
 }
+
+let datosCargados = false;
+
+function cerrarDatos() {
+    const infoLegajo = document.querySelector("#infoLegajo");
+    const cerrarBoton = document.querySelector("#cerrarBoton");
+
+    infoLegajo.innerHTML = '';
+    datosCargados = false;
+    cerrarBoton.style.display = 'none';
+}
+
+function cargarLegajo() {
+    const idAlumno = document.getElementById("inputIdAlumno").value.trim();
+    if (idAlumno === "") {
+        avisoIDVacia.innerText = "Inserte un ID válido, ej: 01, 02, 03.";
+        return;
+    }
+
+    cargarDatosAlumnos(idAlumno);
+}
+
+function cargarDatosAlumnos(idAlumno) {
+    const avisoIDVacia = document.getElementById("avisoIDVacia"); // Agregar esta línea
+    avisoIDVacia.innerText = ""; // Agregar esta línea para limpiar el mensaje de advertencia
+    
+    if (datosCargados) return;
+
+    const spinner = document.querySelector("#spinner");
+
+    spinner.style.display = 'block';
+
+    setTimeout(() => {
+        const infoAlumnos = './data/alumnos.json';
+        const infoLegajo = document.querySelector("#infoLegajo");
+        const cerrarBoton = document.querySelector("#cerrarBoton");
+
+        fetch(infoAlumnos)
+            .then((resp) => resp.json())
+            .then((data) => {
+                const alumno = data.alumnos.find(alumno => alumno.id === idAlumno);
+                if (alumno) {
+                    const li = document.createElement("li");
+                    li.innerHTML = `
+                        <h5> Datos del Alumno </h5>
+                        <h5>ID: <span>${alumno.id}</span></h5>
+                        <h5>DNI: <span>${alumno.dni}</span></h5>
+                        <h5>Padre/Madre/Tutor: <span>${alumno.PadreMadreTutor}</span></h5>
+                        <h5>Materia: <span>${alumno.materia}</span></h5>
+                        <h5>Dirección: <span>${alumno.direccion}</span></h5>
+                    `;
+                    infoLegajo.appendChild(li);
+                } else {
+                    infoLegajo.innerText = "No se encontró ningún legajo para el alumno con el ID especificado.";
+                    avisoIDVacia.innerText = "Inserte un ID válido, ej: 01, 02, 03."; // Agregar esta línea para mostrar el mensaje de advertencia nuevamente
+                }
+                datosCargados = true;
+                cerrarBoton.style.display = 'inline';
+                spinner.style.display = 'none';
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+                spinner.style.display = 'none';
+            });
+    }, 1500);
+}
+

@@ -144,20 +144,23 @@
             <div id="resultadoFinal"></div>
         </div>
 
-    
-
 <br>
+
 
 <!-------- LEGAJO -------->
 
-<h3>Legajo de los Alumnos</h3>
-    <button onclick="cargarDatosAlumnos()">Cargar</button>
-    <button id="cerrarBoton" onclick="cerrarDatos()" style="display: none;">Cerrar</button>
-    <div id="spinner" class="spinner" style="display: none;"></div>
-<br>
-    <div id="infoLegajo"></div>
-<br>
-        </main>
+        <h3>Legajo de los Alumnos</h3>
+        <p>Sólo cargar un alumno a la vez con su ID</p>
+        <button onclick="cargarLegajo()">Cargar Legajo</button>
+        <input type="text" id="inputIdAlumno" placeholder="Ingrese el ID">
+        <button id="cerrarBoton" onclick="cerrarDatos()" style="display: none;">Cerrar</button>
+        <p id="avisoIDVacia"></p>
+        <div id="spinner" class="spinner" style="display: none;"></div>
+        <div id="infoLegajo"></div>
+        <br>
+
+    </main>
+
 
 <!-------- ASIDE -------->
 

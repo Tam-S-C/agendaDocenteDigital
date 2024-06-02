@@ -1,9 +1,7 @@
 {
     "alumnos": [
         {
-            "id": 1,
-            "nombre": "María",
-            "apellido": "Gómez",
+            "id": "01",
             "dni": "43.111.222",    
             "PadreMadreTutor":"Pedro Gómez",
             "materia": "Matemática",
@@ -12,9 +10,7 @@
         },
 
         {
-            "id": 2,
-            "nombre": "Juan",
-            "apellido": "Pérez",
+            "id": "02",
             "dni": "44.123.555",
             "PadreMadreTutor":"Ana Pérez",
             "materia": "Matemática",
@@ -23,9 +19,7 @@
         },
 
         {
-            "id": 3,
-            "nombre": "Pablo",
-            "apellido": "López",
+            "id": "03",
             "dni": "45.789.312",
             "PadreMadreTutor":"Carlos López",
             "materia": "Matemática",
