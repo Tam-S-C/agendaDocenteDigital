@@ -35,9 +35,10 @@ header {
 .buttons button {
     margin: 3px 0 3px 10px;
     padding: 3px 14px;
-    border: none;
     cursor: pointer;
+    border-color: white;
     transition: background-color 0.3s;
+    font-weight: bold;
 }
 
 .buttons button:hover {
@@ -74,6 +75,7 @@ table {
 
 .informeFinal {
     background-color: white;
+    padding: 15px;
     font-size: 14px;
     text-align: left;
 }
@@ -89,13 +91,13 @@ th, td {
     text-align: center;
 }
 
-.notas, .notas1, .notas2, .notas3,
-.notas4, .notas5, .notas6, .notas7, .notas8, .notas9 {
-    width: 32px;
+#notasCheck {
+    width: 34px;
     border-radius: 5px;
     border-color: white;
     font-size: 12px;
 }
+
 
 aside {
     background-color: #D7D7ED;
@@ -113,12 +115,12 @@ aside {
     filter: drop-shadow(1px 1px 2px black);
 }
 
-#avisoTareaVacia{
+#avisoTareaVacia, #avisoAlumnoVacio, #avisoIDVacio, #avisoIDerror{
     font-size: 12px;
     color: red;
 }
 
-#tareasPendientes{
+#tareasPendientes, #nombreApellido, #borrarAlumnoId, .selector-alumno, #informeFinal{
     border-radius: 15px;
     border-color: white;
 }
@@ -140,6 +142,7 @@ button {
     background-color: #a9a9d6;
     box-shadow: 3px 3px 0px #8989bfc7;
     cursor: pointer;
+    font-weight: 600;
 }
 
 button:hover {
@@ -252,7 +255,6 @@ span {
 
 .botonContacto:hover{
     background: #aaf0d1;
-    font-weight: 500;
     transition: 0.5s;
 }
 
