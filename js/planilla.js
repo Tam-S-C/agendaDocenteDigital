@@ -26,14 +26,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Agregar eventos input y click a los checkboxes e inputs de notas
             tr.querySelectorAll('input[type="checkbox"], input[type="number"]').forEach(input => {
-                input.addEventListener("input", actualizarInformeFinal);
-                if (input.type === 'checkbox') {
-                    input.addEventListener("click", actualizarInformeFinal);
-                }
+                input.addEventListener("input", () => {
+                    actualizarInformeMensual(mes);
+                    actualizarInformeFinal();
+                });
             });
         });
 
-        // Añadir el alumno a las opciones del informe final
+        // Añadir el alumno a las opciones del informe final y a los informes mensuales
+        meses.forEach(mes => {
+            let informeMensual = document.querySelector(`#${mes} .selector-alumno`);
+            let option = document.createElement("option");
+            option.value = currentId.toString().padStart(2, '0');
+            option.text = nombreApellido;
+            informeMensual.appendChild(option);
+        });
+
         let informeFinal = document.getElementById("selector-informe-final");
         let option = document.createElement("option");
         option.value = currentId.toString().padStart(2, '0');
@@ -57,12 +65,20 @@ document.addEventListener("DOMContentLoaded", function() {
         filas.forEach(fila => fila.remove());
         avisoIDerror.innerText = "";
 
-        // Eliminar el alumno de las opciones del informe final
+        // Eliminar el alumno de las opciones del informe final y de los informes mensuales
         let informeFinal = document.getElementById("selector-informe-final");
+        let informeMensuales = document.querySelectorAll(".selector-alumno");
         Array.from(informeFinal.options).forEach((option, index) => {
             if (parseInt(option.value) === id) {
                 informeFinal.remove(index);
             }
+        });
+        informeMensuales.forEach(selector => {
+            Array.from(selector.options).forEach((option, index) => {
+                if (parseInt(option.value) === id) {
+                    selector.remove(index);
+                }
+            });
         });
 
         actualizarInformeFinal(); // Actualizar el informe final después de borrar un alumno
@@ -99,9 +115,42 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             document.getElementById("borrarAlumnoId").value = "";
         } else {
+            avisoIDVacio.innerText = "Inserte un ID válido";
             avisoIDVacio.innerText = "Inserte un ID válido, ej: 01, 02, 03.";
         }
     });
+
+    // Función para actualizar el informe mensual
+    function actualizarInformeMensual(mes) {
+        let selector = document.getElementById(`selector-alumno-${mes}`);
+        let alumnoId = parseInt(selector.value);
+
+        if (!isNaN(alumnoId)) {
+            let sumaNotas = 0, sumaAsistencias = 0;
+            let totalNotas = 0, totalAsistencias = 0;
+
+            let notas = obtenerNotasAlumno(alumnoId, mes);
+            let asistencias = obtenerAsistenciasAlumno(alumnoId, mes);
+
+            if (notas.length > 0) {
+                sumaNotas += calcularPromedio(notas);
+                totalNotas++;
+            }
+            if (asistencias.length > 0) {
+                sumaAsistencias += calcularPromedio(asistencias);
+                totalAsistencias++;
+            }
+
+            let promedioNotas = totalNotas > 0 ? (sumaNotas / totalNotas) : 0;
+            let promedioAsistencias = totalAsistencias > 0 ? (sumaAsistencias / totalAsistencias) * 100 : 0;
+
+            let informe = document.querySelector(`#${mes} .informe`);
+            informe.innerText = `El alumno seleccionado tiene ${promedioNotas.toFixed(2)} de promedio y ${promedioAsistencias.toFixed(2)}% de asistencia.`;
+        } else {
+            // Si no se seleccionó ningún alumno, limpiamos el informe mensual
+            document.querySelector(`#${mes} .informe`).innerText = "";
+        }
+    }
 
     // Función para actualizar el informe final
     function actualizarInformeFinal() {
@@ -150,29 +199,36 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Función para obtener las notas de un alumno en un mes
-    function obtenerNotasAlumno(alumnoId, mes) {
-        let notas = Array.from(document.querySelectorAll(`.notas_${mes}_Alumno_${alumnoId}`)).map(input => parseFloat(input.value) || 0);
-        console.log(`Elementos encontrados para las notas del alumno ${alumnoId} en el mes ${mes}: `, document.querySelectorAll(`.notas_${mes}_Alumno_${alumnoId}`));
-        console.log(`Notas obtenidas para el alumno ${alumnoId} en el mes ${mes}: `, notas);
-        return notas;
-    }
-
-    // Función para obtener las asistencias de un alumno en un mes
-    function obtenerAsistenciasAlumno(alumnoId, mes) {
-        let asistencias = Array.from(document.querySelectorAll(`.checkboxMes_${mes}_Alumno_${alumnoId}`)).map(checkbox => checkbox.checked ? 1 : 0);
-        console.log(`Checkbox encontrados para las asistencias del alumno ${alumnoId} en el mes ${mes}: `, document.querySelectorAll(`.checkboxMes_${mes}_Alumno_${alumnoId}`));
-        console.log(`Asistencias obtenidas para el alumno ${alumnoId} en el mes ${mes}: `, asistencias);
-        return asistencias;
-    }
-
-    // Función para calcular el promedio de un array de números
-    function calcularPromedio(numeros) {
-        let suma = numeros.reduce((acc, num) => acc + num, 0);
-        return suma / numeros.length;
-    }
+    // Event listeners para los selectores de alumnos de cada mes
+    ["marzo", "abril", "mayo"].forEach(mes => {
+        document.getElementById(`selector-alumno-${mes}`).addEventListener("change", () => {
+            actualizarInformeMensual(mes);
+        });
+    });
 
     // Event listener para el selector de informe final
     document.getElementById("selector-informe-final").addEventListener("change", actualizarInformeFinal);
 });
 
+
+// Función para obtener las notas de un alumno en un mes
+function obtenerNotasAlumno(alumnoId, mes) {
+    let notas = Array.from(document.querySelectorAll(`.notas_${mes}_Alumno_${alumnoId}`)).map(input => parseFloat(input.value) || 0);
+    console.log(`Elementos encontrados para las notas del alumno ${alumnoId} en el mes ${mes}: `, document.querySelectorAll(`.notas_${mes}_Alumno_${alumnoId}`));
+    console.log(`Notas obtenidas para el alumno ${alumnoId} en el mes ${mes}: `, notas);
+    return notas;
+}
+
+// Función para obtener las asistencias de un alumno en un mes
+function obtenerAsistenciasAlumno(alumnoId, mes) {
+    let asistencias = Array.from(document.querySelectorAll(`.checkboxMes_${mes}_Alumno_${alumnoId}`)).map(checkbox => checkbox.checked ? 1 : 0);
+    console.log(`Checkbox encontrados para las asistencias del alumno ${alumnoId} en el mes ${mes}: `, document.querySelectorAll(`.checkboxMes_${mes}_Alumno_${alumnoId}`));
+    console.log(`Asistencias obtenidas para el alumno ${alumnoId} en el mes ${mes}: `, asistencias);
+    return asistencias;
+}
+
+// Función para calcular el promedio de un array de números
+function calcularPromedio(numeros) {
+    let suma = numeros.reduce((acc, num) => acc + num, 0);
+    return suma / numeros.length;
+}

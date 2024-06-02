@@ -37,80 +37,112 @@
        
         <h2>PLANILLA DE NOTAS Y ASISTENCIA</h2>
 
-    <div>
-        <input type="text" id="nombreApellido" placeholder="Nombre y Apellido">
-        <button id="sumarAlumnoBoton">Sumar Alumno</button>
-        <p id="avisoAlumnoVacio"></p>
-    </div>
+        <div>
+            <input type="text" id="nombreApellido" placeholder="Nombre y Apellido">
+            <button id="sumarAlumnoBoton">Sumar Alumno</button>
+            <p id="avisoAlumnoVacio"></p>
+        </div>
+        <div>
+            <input type="text" id="borrarAlumnoId" placeholder="Ingresar ID">
+            <button id="borrarAlumnoBoton">Borrar Alumno</button>
+            <p id="avisoIDVacio"></p> <p id="avisoIDerror"></p>
+        </div>
+        
+        <br>
+        
+        <!-- Tabla para marzo -->
+        <table id="marzo">
+            <tr>
+                <th colspan="4" class="tituloMes">MARZO</th>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <th>ALUMNOS</th>
+                <th>ASISTENCIAS</th>
+                <th>NOTAS</th>
+            </tr>
+        
+            <tbody class="tablaAlumnos">
+                <!-- alumnos -->
+            </tbody>
+        
+            <tr>
+                <th class="informeMes" colspan="4"> > INFORME MENSUAL >
+                    <label for="selector-alumno-marzo">Elige un alumno:</label>
+                    <select class="selector-alumno" id="selector-alumno-marzo" onchange="actualizarInformeMensual('marzo')">
+                        <option value="Elige un alumno">Alumnos</option>
+                    </select>
+                    <p class="informe"></p>
+                </th>
+        </table>
+        
+        <br>
+        
+        <!-- Tabla para abril -->
+        <table id="abril">
+            <tr>
+                <th colspan="4" class="tituloMes">ABRIL</th>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <th>ALUMNOS</th>
+                <th>ASISTENCIAS</th>
+                <th>NOTAS</th>
+            </tr>
+            <tbody class="tablaAlumnos">
+                <!-- alumnos -->
+            </tbody>
+            <tr>
+                
+                <th class="informeMes" colspan="4"> > INFORME MENSUAL >
+                    <label for="selector-alumno-abril">Elige un alumno:</label>
+                    <select class="selector-alumno" id="selector-alumno-abril" onchange="actualizarInformeMensual('abril')">
+                        <option value="Elige un alumno">Alumnos</option>
+                    </select>
+                    <p class="informe"></p>
+                </th>
+            </tr>
+        </table>
+        
+        <br>
+        
+        <!-- Tabla para mayo -->
+        <table id="mayo">
+            <tr>
+                <th colspan="4" class="tituloMes">MAYO</th>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <th>ALUMNOS</th>
+                <th>ASISTENCIAS</th>
+                <th>NOTAS</th>
+            </tr>
+            <tbody class="tablaAlumnos">
+                <!-- alumnos -->
+            </tbody>
+            <tr>
+                <th class="informeMes" colspan="4"> > INFORME MENSUAL >
+                    <label for="selector-alumno-mayo">Elige un alumno:</label>
+                    <select class="selector-alumno" id="selector-alumno-mayo" onchange="actualizarInformeMensual('mayo')">
+                        <option value="Elige un alumno">Alumnos</option>
+                    </select>
+                    <p class="informe"></p>
+                </th>
+            </tr>
+        </table>
+        
+        <br>
+        
 
-    <div>
-        <input type="text" id="borrarAlumnoId" placeholder="Ingresar ID">
-        <button id="borrarAlumnoBoton">Borrar Alumno</button>
-        <p id="avisoIDVacio"></p>
-        <p id="avisoIDerror"></p>
-    </div>
-    <br>
-
-    <!-- Tabla para marzo -->
-    <table id="marzo">
-        <tr>
-            <th colspan="4" class="tituloMes">MARZO</th>
-        </tr>
-        <tr>
-            <th>ID</th>
-            <th>ALUMNOS</th>
-            <th>ASISTENCIAS</th>
-            <th>NOTAS</th>
-        </tr>
-        <tbody class="tablaAlumnos">
-            <!-- alumnos -->
-        </tbody>
-    </table>
-    <br>
-
-    <!-- Tabla para abril -->
-    <table id="abril">
-        <tr>
-            <th colspan="4" class="tituloMes">ABRIL</th>
-        </tr>
-        <tr>
-            <th>ID</th>
-            <th>ALUMNOS</th>
-            <th>ASISTENCIAS</th>
-            <th>NOTAS</th>
-        </tr>
-        <tbody class="tablaAlumnos">
-            <!-- alumnos -->
-        </tbody>
-    </table>
-    <br>
-
-    <!-- Tabla para mayo -->
-    <table id="mayo">
-        <tr>
-            <th colspan="4" class="tituloMes">MAYO</th>
-        </tr>
-        <tr>
-            <th>ID</th>
-            <th>ALUMNOS</th>
-            <th>ASISTENCIAS</th>
-            <th>NOTAS</th>
-        </tr>
-        <tbody class="tablaAlumnos">
-            <!-- alumnos -->
-        </tbody>
-    </table>
-    <br>
-
-    <!-- Informe Final -->
-    <div class="informeFinal">
-        <label for="selector-informe-final">Informe Final:</label>
-        <select id="selector-informe-final">
-            <option value="">Elige un alumno</option>
-        </select>
-        <br><br>
-        <div id="resultadoFinal"></div>
-    </div>
+        <!-- informeFinal -->
+        <div class="informeFinal">
+            <label for="selector-informe-final">Informe Final:</label>
+            <select id="selector-informe-final" onchange="actualizarInformeFinal()">
+                <option value="Alumnos">Elige un alumno</option>
+            </select>
+            <br><br>
+            <div id="resultadoFinal"></div>
+        </div>
 
     
 
