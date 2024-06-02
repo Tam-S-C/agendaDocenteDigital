@@ -347,7 +347,7 @@ footer p {
         font-size: 12px;
     }
 
-    #certificadoIMG {
+/*     #certificadoIMG {
         width: 170px;
         transition: width 0.5s;
     }
@@ -355,7 +355,7 @@ footer p {
     #certificadoIMG:hover {
         width: 230px;
         transition: 0.5s;
-    }
+    } */
 
     #comentario {
         width: 280px;

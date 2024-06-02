@@ -1,5 +1,13 @@
+//////////////////////////////////////////////////////////////////// MAIN 
+
+/* PLANILLA: AGREGADO DE ALUMNO A CADA MES Y A SELECTORES CON SUS INPUTS 
+PARA NOTAS Y CHECKBOX DE ASISTENCIA Y ELIMINACION DE ALUMNO POR ID 
+CON INFORME DE CADA MES E INFORME FINAL CON PROMEDIOS Y ESTADO DEL ALUMNO */
+
 document.addEventListener("DOMContentLoaded", function() {
-    let currentId = 1;
+    let currentId = 1; // contador para que cada alumno tenga su id único
+
+// Agregar alumno + inputs + checkbox + informe
 
     function agregarAlumno(nombreApellido) {
         let meses = ["marzo", "abril", "mayo"];
@@ -20,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     ${[1, 2, 3].map(i => `<input type="number" id="notasCheck" name="nota_${i}_${mes}_Al_${currentId}[]" min="0" max="10" class="notas_${mes}_Alumno_${currentId}">`).join(' ')}
                 </td>
             `;
-
             tablaAlumnos.appendChild(tr);
 
             tr.querySelectorAll('input[type="checkbox"], input[type="number"]').forEach(input => {
@@ -47,6 +54,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
         currentId++;
     }
+
+// Eliminar alumno
 
     function borrarAlumno(id) {
         let alumnoClass = `.alumno-${id.toString().padStart(2, '0')}`;
@@ -75,11 +84,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             });
         });
-
         actualizarInformeFinal();
-
         return true;
     }
+
+// Mensajes de error por inputs vacíos o id erroneos
 
     document.getElementById("sumarAlumnoBoton").addEventListener("click", () => {
         let nombreApellido = document.getElementById("nombreApellido").value.trim();
@@ -113,6 +122,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+// ACTUALIZAR INFORME DEL MES
+
     function actualizarInformeMensual(mes) {
         let selector = document.getElementById(`selector-alumno-${mes}`);
         let alumnoId = parseInt(selector.value);
@@ -133,8 +144,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 totalAsistencias++;
             }
 
-            let promedioNotas = totalNotas > 0 ? (sumaNotas / totalNotas) : 0;
-            let promedioAsistencias = totalAsistencias > 0 ? (sumaAsistencias / totalAsistencias) * 100 : 0;
+            let promedioNotas = totalNotas > 0 ? (sumaNotas / totalNotas) : 0; // SUGAR SYNTAX
+            let promedioAsistencias = totalAsistencias > 0 ? (sumaAsistencias / totalAsistencias) * 100 : 0; // SUGAR SYNTAX
 
             let informe = document.querySelector(`#${mes} .informe`);
             informe.innerText = `El alumno seleccionado tiene ${promedioNotas.toFixed(2)} de promedio y ${promedioAsistencias.toFixed(2)}% de asistencia.`;
@@ -142,6 +153,8 @@ document.addEventListener("DOMContentLoaded", function() {
             document.querySelector(`#${mes} .informe`).innerText = "";
         }
     }
+
+// ACTUALIZAR INFORME FINAL
 
     function actualizarInformeFinal() {
         let selector = document.getElementById("selector-informe-final");
@@ -165,11 +178,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             });
 
-            let promedioNotas = totalNotas > 0 ? (sumaNotas / totalNotas) : 0;
-            let promedioAsistencias = totalAsistencias > 0 ? (sumaAsistencias / totalAsistencias) * 100 : 0;
+            let promedioNotas = totalNotas > 0 ? (sumaNotas / totalNotas) : 0; // SUGAR SYNTAX
+            let promedioAsistencias = totalAsistencias > 0 ? (sumaAsistencias / totalAsistencias) * 100 : 0; // SUGAR SYNTAX
 
             let resultadoFinal = document.getElementById("resultadoFinal");
             resultadoFinal.innerText = `El alumno seleccionado tiene ${promedioNotas.toFixed(2)} de promedio y ${promedioAsistencias.toFixed(2)}% de asistencia.`;
+
+// En el informe final se agrega el estado del alumno
 
             let estado = "";
             if (promedioNotas >= 7 && promedioAsistencias >= 50) {
@@ -177,9 +192,9 @@ document.addEventListener("DOMContentLoaded", function() {
             } else if (promedioNotas < 7 && promedioAsistencias >= 50) {
                 estado = "Estado: Desaprobado y Regularizado";
             } else if (promedioNotas >= 7 && promedioAsistencias < 50) {
-                estado = "Estado: Aprobado - Ver regularidad";
+                estado = "Estado: Aprobado - Ver Regularidad del alumno";
             } else {
-                estado = "Estado: Desaprobado - No Regularizado";
+                estado = "Estado: Desaprobado - Ver Regularidad del alumno";
             }
 
             resultadoFinal.innerText += ` (${estado})`;
@@ -212,6 +227,8 @@ function calcularPromedio(numeros) {
     return suma / numeros.length;
 }
 
+///////////////////////////////////////////////////////////////// LEGAJOS
+
 let datosCargados = false;
 
 function cerrarDatos() {
@@ -234,8 +251,8 @@ function cargarLegajo() {
 }
 
 function cargarDatosAlumnos(idAlumno) {
-    const avisoIDVacia = document.getElementById("avisoIDVacia"); // Agregar esta línea
-    avisoIDVacia.innerText = ""; // Agregar esta línea para limpiar el mensaje de advertencia
+    const avisoIDVacia = document.getElementById("avisoIDVacia"); 
+    avisoIDVacia.innerText = ""; 
     
     if (datosCargados) return;
 
@@ -265,7 +282,7 @@ function cargarDatosAlumnos(idAlumno) {
                     infoLegajo.appendChild(li);
                 } else {
                     infoLegajo.innerText = "No se encontró ningún legajo para el alumno con el ID especificado.";
-                    avisoIDVacia.innerText = "Inserte un ID válido, ej: 01, 02, 03."; // Agregar esta línea para mostrar el mensaje de advertencia nuevamente
+                    avisoIDVacia.innerText = "Inserte un ID válido, ej: 01, 02, 03.";
                 }
                 datosCargados = true;
                 cerrarBoton.style.display = 'inline';
@@ -277,4 +294,3 @@ function cargarDatosAlumnos(idAlumno) {
             });
     }, 1500);
 }
-
