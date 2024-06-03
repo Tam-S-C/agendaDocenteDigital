@@ -72,16 +72,16 @@ fetch(URL)
 
 function mostrarNombreDocente(){
     let nombreSesionDocente = document.getElementById("nombreDocente");
-    let nombreGuardado = localStorage.getItem('nombre');
+    let nombreGuardado = localStorage.getItem('nombreDoc');
     
     nombreSesionDocente.textContent = nombreGuardado ? "¡Bienvenid@ " + nombreGuardado + "!" : "¡Bienvenid@ Docente!"; // uso de sugar sintax
 }
 
 function guardarNombre(event){
     event.preventDefault();
-    let nombre = document.getElementById("inputNombreDocente").value;
-    localStorage.setItem('nombre', nombre);
-    if (nombre.trim() !== "") {
+    let nombreDoc = document.getElementById("inputNombreDocente").value;
+    localStorage.setItem('nombreDoc', nombreDoc);
+    if (nombreDoc.trim() !== "") {
         Toastify({
             text: "Sesión Iniciada",
             duration: 2000,

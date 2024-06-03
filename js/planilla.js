@@ -4,10 +4,11 @@
 PARA NOTAS Y CHECKBOX DE ASISTENCIA Y ELIMINACION DE ALUMNO POR ID 
 CON INFORME DE CADA MES E INFORME FINAL CON PROMEDIOS Y ESTADO DEL ALUMNO */
 
+
 document.addEventListener("DOMContentLoaded", function() {
     let currentId = 1; // contador para que cada alumno tenga su id único
 
-// Agregar alumno + inputs + checkbox + informe
+// Agregar alumno + inputs + checkboxs + alumno en opción de informes
 
     function agregarAlumno(nombreApellido) {
         let meses = ["marzo", "abril", "mayo"];
