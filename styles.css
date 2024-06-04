@@ -222,15 +222,36 @@ span {
 
 /*css contacto*/
 
-#contacto {
+#contactoContenedor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     text-align: center;
-    width: 94%;
+    width: 90%;
     margin: 20px auto;
     background-color: #ace9ff;
-    padding: 10px;
+    padding: 5px;
     border-radius: 15px;
     font-size: 14px;
     box-shadow: 3px 3px 0px #70b2c9;
+}
+
+#contacto {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    width: 90%;
+    margin: 20px auto;
+    background-color: #ace9ff;
+    padding: 5px;
+    border-radius: 15px;
+    font-size: 14px;
+    box-shadow: 3px 3px 0px #70b2c9;
+}
+
+.contactoIMG{
+    margin: 20px 120px;
 }
 
 #borde-fieldset {
@@ -240,7 +261,7 @@ span {
 .botonContacto {
     padding: 5px;
     border-radius: 15px;
-    margin: 0px 10px 0px 0px;
+    margin: 0px 15px 15px 0px;
     box-shadow: 3px 3px 0px #8989bfc7;
     cursor: pointer;
 }
@@ -298,7 +319,29 @@ footer p {
 
 /* RESPONSIVE tablets*/
 
+@media (max-width: 1350px) {
+
+    .contactoIMG{
+        width: 150px;
+        margin: 20px 100px;
+}
+}
+
+
+@media (max-width: 1100px) {
+
+    .contactoIMG{
+        width: 100px;
+        margin: 20px 50px;
+    }
+}
+
+
 @media (max-width: 900px) {
+
+    .contactoIMG{
+        display: none; 
+    }
 
     #infoLegajo {
         display: grid;
