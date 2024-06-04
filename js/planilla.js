@@ -141,6 +141,21 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+     // Validar el rango del input
+     document.querySelectorAll('input[type="number"]').forEach(input => {
+        input.addEventListener("input", function() {
+            // Obtener el valor actual del input
+            let valor = parseFloat(this.value);
+
+            // Verificar si el valor supera el límite de 10
+            if (valor > 10) {
+                // Si supera el límite, establecer el valor del input a 10
+                this.value = 10;
+            }
+        });
+    });
+
+
     // Actualizar informe del mes
     function actualizarInformeMensual(mes) {
         let selector = document.getElementById(`selector-alumno-${mes}`);
