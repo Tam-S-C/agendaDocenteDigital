@@ -6,11 +6,10 @@ CON INFORME DE CADA MES E INFORME FINAL CON PROMEDIOS Y ESTADO DEL ALUMNO
 CON LOCALSTORAGE */
 
 
-
 document.addEventListener("DOMContentLoaded", function() {
     let currentId = 1; // contador para que cada alumno tenga su id único
 
-    // Recuperar datos del localStorage al cargar la página
+// Recuperar datos del localStorage al cargar la página
     if (localStorage.getItem("alumnos")) {
         let alumnos = JSON.parse(localStorage.getItem("alumnos"));
         currentId = alumnos.length ? Math.max(...alumnos.map(alumno => alumno.id)) + 1 : 1;
@@ -21,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Agregar alumno + inputs + checkboxs + alumno en opción de informes
+// Agregar alumno + inputs + checkboxs + alumno en opción de informes
     function agregarAlumno(nombreApellido, id = currentId, save = true) {
         if (!document.querySelector(`.alumno-${id.toString().padStart(2, '0')}`)) {
             let meses = ["marzo", "abril", "mayo"];
@@ -74,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Eliminar alumno
+// Eliminar alumno
     function borrarAlumno(id) {
         let alumnoClass = `.alumno-${id.toString().padStart(2, '0')}`;
         let filas = document.querySelectorAll(alumnoClass);
@@ -108,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return true;
     }
 
-    // Mensajes de error por inputs vacíos o id erroneos
+// Mensajes de error por inputs vacíos o id erroneos
     document.getElementById("sumarAlumnoBoton").addEventListener("click", () => {
         let nombreApellido = document.getElementById("nombreApellido").value.trim();
         let avisoAlumnoVacio = document.getElementById("avisoAlumnoVacio");
@@ -141,22 +140,20 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-     // Validar el rango del input
+// Validar el rango del input
      document.querySelectorAll('input[type="number"]').forEach(input => {
         input.addEventListener("input", function() {
-            // Obtener el valor actual del input
+
             let valor = parseFloat(this.value);
 
-            // Verificar si el valor supera el límite de 10
-            if (valor > 10) {
+            if (valor < 0 || valor > 10) {
                 // Si supera el límite, establecer el valor del input a 10
                 this.value = 10;
             }
         });
     });
 
-
-    // Actualizar informe del mes
+// Actualizar informe del mes
     function actualizarInformeMensual(mes) {
         let selector = document.getElementById(`selector-alumno-${mes}`);
         let alumnoId = parseInt(selector.value);
@@ -187,105 +184,106 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-  // Actualizar informe final
-function actualizarInformeFinal() {
-    let selector = document.getElementById("selector-informe-final");
-    let alumnoId = parseInt(selector.value);
+// Actualizar informe final
+    function actualizarInformeFinal() {
+        let selector = document.getElementById("selector-informe-final");
+        let alumnoId = parseInt(selector.value);
 
-    if (!isNaN(alumnoId)) {
-        let sumaNotas = 0, sumaAsistencias = 0;
-        let totalNotas = 0, totalAsistencias = 0;
+        if (!isNaN(alumnoId)) {
+            let sumaNotas = 0, sumaAsistencias = 0;
+            let totalNotas = 0, totalAsistencias = 0;
 
-        ["marzo", "abril", "mayo"].forEach(mes => {
-            let notas = obtenerNotasAlumno(alumnoId, mes);
-            let asistencias = obtenerAsistenciasAlumno(alumnoId, mes);
+            ["marzo", "abril", "mayo"].forEach(mes => {
+                let notas = obtenerNotasAlumno(alumnoId, mes);
+                let asistencias = obtenerAsistenciasAlumno(alumnoId, mes);
 
-            if (notas.length > 0) {
-                sumaNotas += calcularPromedio(notas);
-                totalNotas++;
+                if (notas.length > 0) {
+                    sumaNotas += calcularPromedio(notas);
+                    totalNotas++;
+                }
+                if (asistencias.length > 0) {
+                    sumaAsistencias += calcularPromedio(asistencias);
+                    totalAsistencias++;
+                }
+            });
+
+            let promedioNotas = totalNotas > 0 ? (sumaNotas / totalNotas) : 0;
+            let promedioAsistencias = totalAsistencias > 0 ? (sumaAsistencias / totalAsistencias) * 100 : 0;
+
+            let resultadoFinal = document.getElementById("resultadoFinal");
+            resultadoFinal.innerText = `El alumno seleccionado tiene ${promedioNotas.toFixed(2)} de promedio y ${promedioAsistencias.toFixed(2)}% de asistencia.`;
+
+            let estado = "";
+            if (promedioNotas >= 7 && promedioAsistencias >= 50) {
+                estado = "Estado: Aprobado y Regularizado";
+            } else if (promedioNotas < 7 && promedioAsistencias >= 50) {
+                estado = "Estado: Desaprobado y Regularizado";
+            } else if (promedioNotas >= 7 && promedioAsistencias < 50) {
+                estado = "Estado: Aprobado - Ver Regularidad del alumno";
+            } else {
+                estado = "Estado: Desaprobado - Ver Regularidad del alumno";
             }
-            if (asistencias.length > 0) {
-                sumaAsistencias += calcularPromedio(asistencias);
-                totalAsistencias++;
-            }
-        });
 
-        let promedioNotas = totalNotas > 0 ? (sumaNotas / totalNotas) : 0;
-        let promedioAsistencias = totalAsistencias > 0 ? (sumaAsistencias / totalAsistencias) * 100 : 0;
-
-        let resultadoFinal = document.getElementById("resultadoFinal");
-        resultadoFinal.innerText = `El alumno seleccionado tiene ${promedioNotas.toFixed(2)} de promedio y ${promedioAsistencias.toFixed(2)}% de asistencia.`;
-
-        let estado = "";
-        if (promedioNotas >= 7 && promedioAsistencias >= 50) {
-            estado = "Estado: Aprobado y Regularizado";
-        } else if (promedioNotas < 7 && promedioAsistencias >= 50) {
-            estado = "Estado: Desaprobado y Regularizado";
-        } else if (promedioNotas >= 7 && promedioAsistencias < 50) {
-            estado = "Estado: Aprobado - Ver Regularidad del alumno";
+            resultadoFinal.innerText += ` (${estado})`;
         } else {
-            estado = "Estado: Desaprobado - Ver Regularidad del alumno";
+            document.getElementById("resultadoFinal").innerText = "";
         }
-
-        resultadoFinal.innerText += ` (${estado})`;
-    } else {
-        document.getElementById("resultadoFinal").innerText = "";
     }
-}
 
 // Función para guardar los datos en localStorage
-function guardarDatos() {
-    let alumnos = [];
+    function guardarDatos() {
+        let alumnos = [];
 
-    document.querySelectorAll(".tablaAlumnos tr").forEach(row => {
-        if (row.querySelector("td")) {
-            let id = parseInt(row.querySelector("td").innerText);
-            let nombreApellido = row.querySelectorAll("td")[1].innerText;
-            let alumno = {
-                id: id,
-                nombreApellido: nombreApellido,
-                meses: {
-                    marzo: {
-                        notas: obtenerNotasAlumno(id, "marzo"),
-                        asistencias: obtenerAsistenciasAlumno(id, "marzo")
-                    },
-                    abril: {
-                        notas: obtenerNotasAlumno(id, "abril"),
-                        asistencias: obtenerAsistenciasAlumno(id, "abril")
-                    },
-                    mayo: {
-                        notas: obtenerNotasAlumno(id, "mayo"),
-                        asistencias: obtenerAsistenciasAlumno(id, "mayo")
+        document.querySelectorAll(".tablaAlumnos tr").forEach(row => {
+            if (row.querySelector("td")) {
+                let id = parseInt(row.querySelector("td").innerText);
+                let nombreApellido = row.querySelectorAll("td")[1].innerText;
+                let alumno = {
+                    id: id,
+                    nombreApellido: nombreApellido,
+                    meses: {
+                        marzo: {
+                            notas: obtenerNotasAlumno(id, "marzo"),
+                            asistencias: obtenerAsistenciasAlumno(id, "marzo")
+                        },
+                        abril: {
+                            notas: obtenerNotasAlumno(id, "abril"),
+                            asistencias: obtenerAsistenciasAlumno(id, "abril")
+                        },
+                        mayo: {
+                            notas: obtenerNotasAlumno(id, "mayo"),
+                            asistencias: obtenerAsistenciasAlumno(id, "mayo")
+                        }
                     }
-                }
-            };
-            alumnos.push(alumno);
-        }
-    });
+                };
+                alumnos.push(alumno);
+            }
+        });
 
-    localStorage.setItem("alumnos", JSON.stringify(alumnos));
-}
+        localStorage.setItem("alumnos", JSON.stringify(alumnos));
+    }
 
 // Función para actualizar datos de un alumno en la interfaz
-function actualizarDatosAlumno(alumno) {
+    function actualizarDatosAlumno(alumno) {
+        ["marzo", "abril", "mayo"].forEach(mes => {
+            alumno.meses[mes].notas.forEach((nota, i) => {
+                document.querySelectorAll(`.notas_${mes}_Alumno_${alumno.id}`)[i].value = nota;
+            });
+            alumno.meses[mes].asistencias.forEach((asistencia, i) => {
+                document.querySelectorAll(`.checkboxMes_${mes}_Alumno_${alumno.id}`)[i].checked = !!asistencia;
+            });
+        });
+    }
+
     ["marzo", "abril", "mayo"].forEach(mes => {
-        alumno.meses[mes].notas.forEach((nota, i) => {
-            document.querySelectorAll(`.notas_${mes}_Alumno_${alumno.id}`)[i].value = nota;
-        });
-        alumno.meses[mes].asistencias.forEach((asistencia, i) => {
-            document.querySelectorAll(`.checkboxMes_${mes}_Alumno_${alumno.id}`)[i].checked = !!asistencia;
+        document.getElementById(`selector-alumno-${mes}`).addEventListener("change", () => {
+            actualizarInformeMensual(mes);
         });
     });
-}
 
-["marzo", "abril", "mayo"].forEach(mes => {
-    document.getElementById(`selector-alumno-${mes}`).addEventListener("change", () => {
-        actualizarInformeMensual(mes);
-    });
+    document.getElementById("selector-informe-final").addEventListener("change", actualizarInformeFinal);
 });
 
-document.getElementById("selector-informe-final").addEventListener("change", actualizarInformeFinal);
-});
 
 function obtenerNotasAlumno(alumnoId, mes) {
     let notas = Array.from(document.querySelectorAll(`.notas_${mes}_Alumno_${alumnoId}`)).map(input => parseFloat(input.value) || 0);
@@ -301,9 +299,6 @@ function calcularPromedio(numeros) {
     let suma = numeros.reduce((acc, num) => acc + num, 0);
     return suma / numeros.length;
 }
-
-
-
 
 
 ///////////////////////////////////////////////////////////////// LEGAJOS
