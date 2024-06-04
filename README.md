@@ -16,7 +16,7 @@ __________________________________________________________
 > **ENTREGA FINAL**
 
 
-+ Planilla dinámica, se pueden agregar y eliminar alumnos. Ver sus promedios mensuales e informe final.
++ Planilla dinámica, se pueden agregar y eliminar alumnos. Ver sus promedios mensuales e informe final + LocalStorage.
 
 + Tareas pendientes: Evitar que se sumen tareas vacías + cartel con innerText de aviso, tareas con guardado en localStorage.
 
