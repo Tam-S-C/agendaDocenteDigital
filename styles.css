@@ -224,11 +224,11 @@ span {
 
 #contactoContenedor {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     text-align: center;
-    width: 90%;
-    margin: 20px auto;
+    width: auto;
+    margin: 10px 25px;
     background-color: #ace9ff;
     padding: 5px;
     border-radius: 15px;
