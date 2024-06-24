@@ -380,6 +380,8 @@ footer p {
     #contacto {
         width: 90%;
         margin: auto;
+        display: grid;
+        grid-template-columns: 1fr; 
     }
 
     aside{
