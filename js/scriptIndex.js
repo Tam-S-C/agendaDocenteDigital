@@ -8,6 +8,8 @@
 // .json local con datos de los alumnos. (CHECK)
 // API calendario https://date.nager.at/swagger/index.html (CHECK)
 
+// PLANILLA EN SCRIPT PLANILLA.JS
+
 ///////////////////////////////////////
 
 /* CAMBIOS REALIZADOS: PRE-ENTREGA 3 */
