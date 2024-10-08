@@ -33,7 +33,7 @@ __________________________________________________________
 + API calendario date.nager.at/swagger/index.html con feriados próximos de Arg.
 
 -----
-<h3> > Tecnologías / Lenguajes / Librerías</h3>
+<h3> > Tecnologías / Lenguajes / Librerías / Programas</h3>
 
 ![image](https://github.com/user-attachments/assets/09bb3851-8f1c-44b2-a0f1-330181e7aad1)
 ![image](https://github.com/user-attachments/assets/e27f4435-1fa4-43b0-93a4-9f2da115d562)
