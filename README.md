@@ -13,7 +13,7 @@
 __________________________________________________________
 
 > [!NOTE]
-> **ENTREGA FINAL**
+> **ENTREGA FINAL** => 100%
 > Uso de APIs, LocalStorage, Librerías, JS dinámico.
 
 + Planilla dinámica, se pueden agregar y eliminar alumnos. Ver sus promedios mensuales e informe final + LocalStorage.
@@ -31,6 +31,17 @@ __________________________________________________________
 + .json local con datos de los alumnos desde su IDentificador + subida de certificado.
 
 + API calendario date.nager.at/swagger/index.html con feriados próximos de Arg.
+
+-----
+<h3> > Tecnologías / Lenguajes / Librerías</h3>
+
+![image](https://github.com/user-attachments/assets/09bb3851-8f1c-44b2-a0f1-330181e7aad1)
+![image](https://github.com/user-attachments/assets/e27f4435-1fa4-43b0-93a4-9f2da115d562)
+![image](https://github.com/user-attachments/assets/1767df44-aa42-441c-ba84-d0ac373df9ed)
+![image](https://github.com/user-attachments/assets/86312436-d34d-45ff-bbd7-f801a74c985b)
+
+![image](https://github.com/user-attachments/assets/a4735e28-43b3-4e29-9330-7ee1166efd8c)
+![image](https://github.com/user-attachments/assets/e8be5317-335b-42f1-a439-aeea4ae937f1)
 
 -----
 > Top 10:
