@@ -50,4 +50,4 @@ https://www.coderhouse.com/ar/certificados/66639ce198f8453e09ce42a5?lang=es
 
 | **JavaScript** |
 |:--:|
-| ![JavaScript](https://media.licdn.com/dms/image/v2/D4D2DAQEqsZ8vqu0Frg/profile-treasury-image-shrink_800_800/profile-treasury-image-shrink_800_800/0/1719366093878?e=1728878400&v=beta&t=lEX1lZ20itflGOucdVPtbwaQhai0nSz7KZBE9lepHvc) |
+| ![JavaScript](https://media.licdn.com/dms/image/v2/D4D2DAQGmEJKL_m0N_Q/profile-treasury-image-shrink_800_800/profile-treasury-image-shrink_800_800/0/1728448361655?e=1729569600&v=beta&t=Rb7HpEe1Gk6BuRU7Wz7sQGpBT1lsnQ42p1Cxhhb6KOc) |
