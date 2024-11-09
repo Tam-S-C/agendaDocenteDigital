@@ -14,6 +14,7 @@ __________________________________________________________
 
 > [!NOTE]
 > **ENTREGA FINAL** => 100%
+> 
 > Uso de APIs, LocalStorage, Librerías, JS dinámico.
 
 + Planilla dinámica, se pueden agregar y eliminar alumnos. Ver sus promedios mensuales e informe final + LocalStorage.
