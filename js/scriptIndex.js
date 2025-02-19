@@ -32,7 +32,7 @@ fetch(URLCalendario)
     .then((resp) => resp.json())
     .then((data) => {
         // Filtrar los feriados para mostrar solo los de 2024
-        const holidays2024 = data.filter((holiday) => holiday.date.startsWith('2024'));
+        const holidays2024 = data.filter((holiday) => holiday.date.startsWith('2025'));
         
         holidays2024.forEach((holiday) => {
             const li = document.createElement("li");
