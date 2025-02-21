@@ -25,7 +25,7 @@ __________________________________________________________
 
 + Librería Toastify para aviso de Sesión Iniciada > Actualiza en el aside el mensaje de bienvenid@ "nombre" y lo guarda en localStorage.
 
-+ Uso de Date para saber el día y dar mensaje de bienbenida y materias con sus horarios.
++ Uso de Date para saber el día y dar mensaje de bienvenida y materias con sus horarios.
 
 + API de frases de api-get-quotes.vercel.app, categoría motivacionales / Fetch.
 
