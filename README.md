@@ -47,4 +47,4 @@ __________________________________________________________
 -----
 > Top 10:
 > Certificado:
-https://www.coderhouse.com/ar/certificados/66639ce198f8453e09ce42a5?lang=es
+https://pub.coderhouse.com/legacy-certificates/66639ce198f8453e09ce42a5?lang=es
