@@ -8,6 +8,8 @@
 
 + Deploy: https://tam-s-c.github.io/agendaDocenteDigital/
 
++ Vercel: https://agenda-docente-digital.vercel.app/
+
 + GitHub: https://github.com/Tam-S-C/agendaDocenteDigital/
 
 __________________________________________________________
